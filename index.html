@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Execution Tower</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* ── Workflow-state palette (state-coded; calm pastel system — unchanged) ── */
+  --c-lav:#A7A7F3;   --c-lav-deep:#5F5DCB;   /* Queue / neutral work */
+  --c-blush:#F2DDDC; --c-rose:#D7A6A2; --c-rose-deep:#A85B54; /* Pending / blocked */
+  --c-peach:#F6C8BA; --c-peach-deep:#D9825C; /* Focus / attention */
+  --c-pink:#E3AADD;  --c-pink-deep:#B05BA6;  /* Priority / highlight / action */
+  --c-peri:#C8A8E9;  --c-peri-deep:#8E61C9;  /* Up Next / selected intent */
+  --c-ice:#C3C7F4;   --c-ice-deep:#666ECB;   /* Done / completion */
+
+  /* ── Lavender Mist page background ── */
+  --bg-page:#D5D4FF;
+
+  /* ── Glass surface system — restrained, "glass floating over paper" ── */
+  --glass-flush: rgba(255,255,255,.28);
+  --glass: rgba(255,255,255,.40);
+  --glass-strong: rgba(255,255,255,.52);
+  --glass-border: rgba(255,255,255,.55);
+  --glass-border-strong: rgba(255,255,255,.70);
+  --blur: blur(40px) saturate(180%);
+  --blur-sm: blur(20px) saturate(150%);
+
+  /* ── Legacy aliases mapped onto the glass system (drives cascade below) ── */
+  --cream:var(--glass-flush);
+  --card:var(--glass);
+  --olive:#8E61C9;
+  --chart:#C3C7F4;
+  --lav:#A7A7F3;
+  --coral:#E3AADD;
+  --pink:#D7A6A2;
+  --peri:#C3C7F4;
+  --blue:#C3C7F4;
+  --blue-lt:#C3C7F4;
+  --peach:#F6C8BA;
+  --yellow:#F2DDDC;
+  --pink-lt:rgba(255,255,255,.30);
+  --pink-2:rgba(255,255,255,.30);
+
+  /* ── Typography — white primary, soft-white secondary/tertiary ── */
+  --navy:#3A3A8B;
+  --text:#2D2D70;
+  --text-2:#4A4AA0;
+  --text-3:#7373B8;
+
+  --border:var(--glass-border);
+  --border-m:var(--glass-border-strong);
+  --font:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+  --r:20px;
+  --r-sm:15px;
+
+  /* Edge-only highlight, minimal cast shadow — no glow */
+  --shadow:0 20px 50px rgba(0,0,0,.15), inset 0 0 0 1px rgba(255,255,255,.5);
+  --shadow-md:0 32px 80px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.6);
+}
+body{
+  font-family:var(--font);
+  background:var(--bg-page);
+  color:var(--text);min-height:100vh;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased
+}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:2px}
+
+/* Glass surfaces — backdrop blur applied once, centrally, to every frosted surface class */
+.topbar,.topbar-capture,.now-inner,.lane,.mini-panel,.card,.modal,.worknotes-area,
+.ticket-card,.outcome-item,.recent-panel,.row-one,.outcomes-strip,.worknotes-strip,
+.form-row input,.form-row select,.form-row textarea,#panel-upnext,.upnext-list .mini-item{
+  backdrop-filter:var(--blur);
+  -webkit-backdrop-filter:var(--blur);
+}
+.now-check,.card-check,.outcome-check,.card-btn,.move-select,.btn-save{
+  backdrop-filter:var(--blur-sm);
+  -webkit-backdrop-filter:var(--blur-sm);
+}
+
+/* TOP BAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-capture{flex:1;max-width:420px;margin:0 20px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:6px 12px;box-shadow:var(--shadow)}
+.topbar-capture::before{content:'\002b';font-size:14px;font-weight:700;color:var(--coral);line-height:1}
+.capture-input{flex:1;font-family:var(--font);font-size:12.5px;font-weight:500;color:var(--navy);background:transparent;border:none;outline:none;caret-color:var(--coral)}
+.capture-input::placeholder{color:var(--text-3);font-weight:500}
+.logo{font-size:14px;font-weight:700;color:var(--navy);letter-spacing:-.2px}
+.logo-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--coral);margin-left:3px;vertical-align:middle;margin-bottom:2px}
+.date-badge{font-size:11px;font-weight:600;color:var(--text-2);background:var(--pink-lt);padding:3px 10px;border-radius:20px;letter-spacing:.02em}
+.save-dot{width:6px;height:6px;border-radius:50%;background:var(--blue-lt);transition:background .3s;flex-shrink:0}
+.save-dot.saving{background:var(--olive)}
+.topbar-right{display:flex;gap:8px}
+.btn{font-family:var(--font);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid var(--border-m);background:transparent;color:var(--text-2);cursor:pointer;transition:all .15s;letter-spacing:.01em}
+.btn:hover{background:var(--pink-lt);border-color:var(--pink);color:var(--navy)}
+.btn-clean:hover{background:rgba(215,166,162,.14);border-color:var(--c-rose);color:var(--c-rose-deep)}
+.btn-coral{border-color:var(--coral);color:var(--c-pink-deep);background:rgba(227,170,221,.08)}
+.btn-coral:hover{background:rgba(227,170,221,.30);color:#FFFFFF}
+
+/* NOW STRIP */
+.now-strip{padding:8px 20px 10px;border-bottom:1px solid var(--border)}
+.now-inner{display:flex;align-items:center;gap:11px;background:var(--card);border:1.5px solid var(--c-peach);border-radius:var(--r);padding:8px 13px;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
+.now-inner:focus-within{border-color:var(--c-peach);box-shadow:0 0 0 3px rgba(246,200,186,.22)}
+.now-pulse{width:9px;height:9px;border-radius:50%;background:var(--c-peach-deep);flex-shrink:0;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(246,200,186,.5)}60%{opacity:.75;box-shadow:0 0 0 5px rgba(246,200,186,0)}}
+.now-label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--c-peach-deep);flex-shrink:0}
+.now-text{font-size:16px;font-weight:700;color:var(--navy);outline:none;flex:1;min-width:0;caret-color:var(--coral)}
+.now-text:empty::before{content:attr(data-placeholder);color:var(--text-3);font-weight:500;pointer-events:none}
+.now-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--c-peach-deep);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--card)}
+.now-check:hover{border-color:var(--navy);background:rgba(246,200,186,.18)}
+.now-inner.now-done .now-check{background:var(--c-peach-deep);border-color:var(--c-peach-deep)}
+.now-inner.now-done .now-check::after{content:'\2713';font-size:11px;color:white;font-weight:800}
+.now-inner.now-done .now-text{text-decoration:line-through;color:var(--text-3);}
+.now-clear{font-size:11px;color:var(--text-3);cursor:pointer;padding:2px 7px;border-radius:20px;transition:all .15s;display:none;font-weight:600}
+.now-inner:hover .now-clear,.now-inner:focus-within .now-clear{display:block}
+.now-clear:hover{background:var(--pink-lt);color:var(--c-peach-deep)}
+
+/* BOARD */
+.board-wrap{padding:10px 20px 8px;overflow-x:auto}
+.board{display:flex;align-items:stretch;gap:14px;min-width:0}
+.board>.lane{flex:0 0 auto;min-width:0}
+
+/* LANES */
+.lane{background:var(--card);border:1px solid var(--border);border-radius:var(--r);display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.lane-header{padding:8px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-radius:var(--r) var(--r) 0 0}
+.lane-name{font-size:13.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.lane-count{font-size:11px;font-weight:600;color:var(--text-3)}
+.lane-actions{display:flex;align-items:center;gap:6px}
+.lane-add{width:22px;height:22px;border-radius:50%;border:1.5px dashed var(--border-m);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:15px;line-height:1;transition:all .15s;flex-shrink:0}
+.lane-body{padding:12px;flex:1;display:flex;flex-direction:column;gap:9px;min-height:120px;max-height:44vh;overflow-y:auto}
+.lane-body.drag-over{background:rgba(167,167,243,.06);border-radius:0 0 var(--r) var(--r);outline:2px dashed var(--lav);outline-offset:-6px}
+.lane-empty{font-size:11px;color:var(--text-3);text-align:center;padding:18px 0;font-weight:600}
+
+/* LANE ACCENTS — white headers, thin pastel borders, no large fills */
+.lane-header{background:var(--card)}
+.lane-name{color:var(--navy)}
+.lane-name::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--text-3);margin-right:7px;vertical-align:middle;margin-bottom:1px}
+.lane-queue .lane-add:hover{border-color:var(--text-2);color:var(--text-2);background:rgba(255,255,255,.14)}
+.lane-waiting{border-color:rgba(215,166,162,.42)}
+.lane-waiting .lane-name::before{background:var(--pink)}
+.lane-waiting .lane-add:hover{border-color:var(--pink);color:var(--text);background:rgba(255,255,255,.14)}
+.lane-done{border-color:rgba(195,199,244,.48)}
+.lane-done .lane-name::before{background:var(--peri)}
+.lane-done .lane-count{background:var(--chart);color:#2D2D2D;padding:2px 9px;border-radius:20px;font-weight:700}
+.lane-done .lane-count:empty{background:none;padding:0}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 11px;cursor:grab;transition:all .15s;position:relative}
+.card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);pointer-events:none;opacity:.7;transition:opacity .2s ease-in-out}
+.card:hover::before{opacity:1}
+.card:hover{border-color:var(--border-m);box-shadow:var(--shadow)}
+.card.dragging{opacity:.4;cursor:grabbing;transform:rotate(1deg) scale(1.02);box-shadow:0 22px 44px rgba(20,20,26,.28)}
+.card-title{font-size:14px;font-weight:700;color:var(--navy);line-height:1.45;word-break:break-word;letter-spacing:-.01em}
+.card-waiton{font-size:11px;font-weight:600;color:var(--text);background:none;border:1px solid var(--pink);padding:2px 9px;border-radius:20px;display:inline-block;margin-top:6px}
+.card-notes{font-size:11px;font-weight:500;color:var(--text-2);opacity:.75;line-height:1.45;margin-top:5px;padding-top:5px;border-top:1px solid var(--border);word-break:break-word;white-space:pre-wrap}
+.card-carry{font-size:8.5px;font-weight:700;color:var(--text-3);background:none;border:1px solid var(--border-m);padding:1px 7px;border-radius:20px;display:inline-block;margin-top:5px;letter-spacing:.06em;text-transform:uppercase}
+.card-nextpush{font-size:10px;font-weight:600;color:var(--text-2);background:none;border:1px solid var(--border-m);padding:2px 9px;border-radius:20px;display:inline-block;margin-top:5px;margin-left:5px;letter-spacing:.01em}
+
+/* QUICK ADD */
+.quick-add-wrap{padding:6px 10px;border-bottom:1px solid var(--border)}
+.quick-add-input{width:100%;font-family:var(--font);font-size:12px;font-weight:500;color:var(--navy);background:transparent;border:none;outline:none;padding:4px 2px;caret-color:var(--coral)}
+.quick-add-input::placeholder{color:var(--text-3);font-weight:400}
+
+/* CARD CHECK */
+.card-title-row{display:flex;align-items:flex-start;gap:8px}
+.card-title-row .card-title{flex:1}
+.card-check{width:15px;height:15px;border-radius:4px;border:1px solid var(--border-m);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--card);margin-top:1px}
+.card-check:hover{border-color:var(--chart);background:rgba(195,199,244,.1)}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:5px}
+.card-ts{font-size:9px;font-weight:600;color:var(--text-3);letter-spacing:.03em}
+.card-acts{display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.card:hover .card-acts{opacity:1}
+.card-btn{font-family:var(--font);font-size:10px;font-weight:600;color:var(--text-2);background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2px 9px;cursor:pointer;transition:all .15s}
+.card-btn:hover{border-color:var(--border-m);color:var(--navy)}
+.card-btn.del:hover{border-color:var(--c-pink);color:var(--c-pink-deep);background:rgba(227,170,221,.10)}
+.card-btn.to-wait:hover{border-color:var(--c-rose);color:var(--c-rose-deep);background:rgba(215,166,162,.12)}
+.move-select{font-family:var(--font);font-size:10px;font-weight:600;color:var(--text-2);background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2px 8px;cursor:pointer;appearance:none;outline:none;transition:all .15s}
+.move-select:hover{border-color:var(--border-m);color:var(--navy)}
+.done-card .card-title{color:var(--text-3);text-decoration:line-through;font-weight:500}
+.done-card .card-notes{display:none}
+.done-card{opacity:.65}
+.clear-done-btn{font-family:var(--font);font-size:10px;font-weight:700;color:var(--text-2);background:none;border:1px solid var(--border-m);border-radius:20px;padding:2px 10px;cursor:pointer;transition:all .15s}
+.clear-done-btn:hover{border-color:var(--navy);color:var(--navy)}
+
+/* BOTTOM ROW */
+.bottom-row{display:flex;align-items:stretch;gap:0;padding:2px 20px 16px;overflow-x:auto}
+.bottom-row>.mini-panel{flex:0 0 auto;min-width:0}
+.mini-panel{background:var(--card);border:1px solid rgba(255,255,255,.24);border-radius:var(--r);padding:10px 13px;box-shadow:var(--shadow)}
+.mini-marker.ticket{color:var(--lav);font-size:9px}
+.mini-text:empty:before{content:attr(data-ph);color:var(--text-3);font-weight:400}
+.tickets-hint{font-size:10px;font-weight:600;color:var(--text-3);margin-left:8px}
+.mini-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.mini-label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2)}
+.mini-add{width:22px;height:22px;border-radius:50%;border:1.5px dashed var(--border-m);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:15px;line-height:1;transition:all .15s;flex-shrink:0}
+.mini-add:hover{border-color:var(--text-2);color:var(--text-2);background:rgba(255,255,255,.14)}
+.mini-item{display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.mini-item:last-child{border-bottom:none}
+.mini-marker{font-size:7px;color:var(--text-3);margin-top:6px;flex-shrink:0;line-height:1}
+.mini-text{color:var(--text);font-weight:500;flex:1;line-height:1.4;outline:none}
+.mini-text:focus{color:var(--navy)}
+.mini-del{opacity:0;font-size:10px;font-weight:700;color:var(--text-3);cursor:pointer;padding:1px 5px;border-radius:20px;transition:opacity .15s;flex-shrink:0}
+.mini-item:hover .mini-del{opacity:1}
+.mini-del:hover{background:var(--pink-lt);color:var(--coral)}
+.mini-empty{font-size:11px;font-weight:600;color:var(--text-3);font-style:italic;padding:6px 0}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(44,44,52,.25);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.overlay.open{display:flex}
+.modal{background:var(--glass-strong);border:1px solid var(--glass-border-strong);border-radius:var(--r);padding:22px;width:100%;max-width:380px;box-shadow:var(--shadow-md)}
+.modal h3{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-2);margin-bottom:16px}
+.form-row{margin-bottom:11px}
+.form-row label{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:5px}
+.form-row input,.form-row select,.form-row textarea{width:100%;font-family:var(--font);font-size:13px;font-weight:500;color:var(--navy);background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 11px;outline:none;transition:border .15s;resize:vertical;caret-color:var(--coral)}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--coral)}
+.form-row select option{background:white}
+.modal-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.btn-save{background:rgba(227,170,221,.32);border-color:rgba(227,170,221,.65);color:#FFFFFF;font-weight:700}
+.btn-save:hover{background:rgba(176,91,166,.55);border-color:rgba(176,91,166,.8);color:#FFFFFF}
+
+/* COMMITMENTS BANNER */
+.outcomes-strip{padding:9px 20px;border-bottom:1px solid var(--border);background:var(--cream)}
+.outcomes-inner{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.outcomes-head{display:flex;flex-direction:column;gap:1px;flex-shrink:0;min-width:150px}
+.outcomes-label{font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.outcomes-sub{font-size:11px;font-weight:600;color:var(--text-2)}
+.outcomes-list{display:flex;gap:10px;flex:1;flex-wrap:wrap;min-width:200px}
+.outcome-item{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--lav);border-radius:var(--r);padding:6px 12px 6px 9px;transition:all .15s;box-shadow:var(--shadow)}
+.outcome-item.done{opacity:.6;border-color:var(--border);background:var(--cream);box-shadow:none}
+.outcome-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--lav);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--card)}
+.outcome-check:hover{border-color:var(--navy)}
+.outcome-item.done .outcome-check{background:var(--chart);border-color:var(--chart)}
+.outcome-item.done .outcome-check::after{content:'✓';font-size:13px;color:#2D2D2D;font-weight:800}
+.outcome-text{font-size:15px;font-weight:700;color:var(--navy);outline:none;min-width:90px;caret-color:var(--coral)}
+.outcome-item.done .outcome-text{text-decoration:line-through;color:var(--text-3)}
+.outcome-del{font-size:11px;font-weight:700;color:var(--text-3);cursor:pointer;padding:0 2px;border-radius:50%;opacity:0;transition:opacity .15s;line-height:1;flex-shrink:0}
+.outcome-item:hover .outcome-del{opacity:1}
+.outcome-del:hover{color:var(--coral)}
+.outcomes-add{font-size:12px;font-weight:700;color:var(--text-2);cursor:pointer;padding:10px 15px;border-radius:var(--r);border:2px dashed var(--border-m);background:none;transition:all .15s;white-space:nowrap}
+.outcomes-add:hover{border-color:var(--lav);color:var(--lav);background:rgba(167,167,243,.07)}
+.outcomes-add.hidden{display:none}
+
+/* CURRENT FOCUS */
+.now-inner.has-focus .now-text{color:var(--navy)}
+.card.card-focused{border-color:var(--c-peach);box-shadow:0 0 0 2px rgba(246,200,186,.16)}
+.card-btn.is-focus{border-color:var(--c-peach);color:var(--c-peach-deep);background:rgba(246,200,186,.16)}
+.card-btn.is-focus:hover{border-color:var(--c-peach);color:var(--c-peach-deep)}
+
+/* WORK NOTES */
+.worknotes-strip{padding:14px 24px 26px;border-bottom:none;background:var(--cream)}
+.worknotes-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.worknotes-label{font-size:14px;font-weight:700;letter-spacing:-.01em;color:var(--navy)}
+.worknotes-sub{font-size:10.5px;font-weight:600;color:var(--text-3)}
+.worknotes-area{width:100%;min-height:98px;font-family:var(--font);font-size:13px;font-weight:500;line-height:1.6;color:var(--navy);background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;outline:none;resize:vertical;caret-color:var(--coral);transition:border .15s;box-shadow:var(--shadow)}
+.worknotes-area:focus{border-color:var(--lav)}
+.worknotes-area::placeholder{color:var(--text-3);font-weight:500}
+.worknotes-area{white-space:pre-wrap}
+
+/* WAITING SINCE badge */
+.card-since{font-size:9px;font-weight:700;color:var(--text-3);background:none;border:1px solid var(--pink);padding:2px 8px;border-radius:20px;display:inline-block;margin-top:5px;letter-spacing:.02em}
+
+/* DONE COUNTER in topbar */
+.done-counter{font-size:11px;font-weight:700;color:#2D2D2D;background:var(--chart);padding:3px 11px;border-radius:20px;letter-spacing:.01em}
+.done-counter span{color:#2D2D2D}
+
+/* ACTIVE TICKETS */
+.tickets-grid{display:flex;flex-direction:column;gap:5px}
+.tickets-grid.drag-over{outline:2px dashed var(--lav);outline-offset:3px;border-radius:var(--r-sm)}
+.ticket-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:7px 10px;cursor:grab;transition:all .15s;position:relative}
+.ticket-card:hover{border-color:var(--border-m);box-shadow:var(--shadow)}
+.ticket-card.dragging{opacity:.4;cursor:grabbing;transform:rotate(1deg)}
+.ticket-top{display:flex;align-items:center;gap:9px}
+.ticket-caret{width:13px;height:13px;flex-shrink:0;cursor:pointer;color:var(--text-3);font-size:8px;display:flex;align-items:center;justify-content:center;transition:transform .15s;user-select:none}
+.ticket-card.collapsed .ticket-caret{transform:rotate(-90deg)}
+.ticket-num{font-size:12.5px;font-weight:700;color:var(--navy);letter-spacing:.03em;flex:1;cursor:pointer;font-feature-settings:'tnum' 1}
+.ticket-status{font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 9px;border-radius:20px;flex-shrink:0;text-transform:uppercase;white-space:nowrap}
+.ticket-status.g-action{background:rgba(246,200,186,.30);color:var(--c-peach-deep);border:1px solid var(--c-peach)}
+.ticket-status.g-wait{background:rgba(215,166,162,.22);color:var(--c-rose-deep);border:1px solid var(--c-rose)}
+.ticket-status.g-close{background:rgba(255,255,255,.14);color:var(--text-3);border:1px solid var(--border-m)}
+.ticket-num{font-size:12.5px;font-weight:700;color:var(--navy);letter-spacing:.03em;flex:1;cursor:pointer;font-feature-settings:'tnum' 1}
+a.ticket-num{text-decoration:none;display:flex;align-items:center;gap:5px}
+a.ticket-num:hover{text-decoration:underline}
+.ticket-ext{font-size:9px;color:var(--text-3);font-weight:700}
+.ticket-body{margin-top:7px;display:flex;flex-direction:column;gap:5px}
+.ticket-card.collapsed .ticket-body{display:none}
+.ticket-user{font-size:12px;font-weight:600;color:var(--text);line-height:1.35}
+.ticket-move{display:flex;flex-direction:column;gap:1px;margin-top:2px}
+.ticket-move-label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-3)}
+.ticket-move-val{font-size:11.5px;font-weight:500;color:var(--text-2);line-height:1.4;word-break:break-word}
+.ticket-acts{display:flex;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);opacity:0;transition:opacity .15s}
+.ticket-card:hover .ticket-acts{opacity:1}
+.tickets-num{font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.02em}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:#2A2846;color:#FFFFFF;font-size:12px;font-weight:600;padding:9px 18px;border-radius:20px;z-index:300;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(32,26,66,.35)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============================================================
+   VNEXT — workflow-efficiency pass (compaction + layout only;
+   colors, type & components inherited from the base system) 
+   ============================================================ */
+
+/* ROW 1 — Commitments + Current Focus side by side */
+.row-one{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;padding:10px 20px;border-bottom:1px solid var(--border);align-items:stretch}
+.row-one .outcomes-strip,.row-one .now-strip{padding:0;border:none;display:flex;align-items:center}
+.row-one .outcomes-strip{background:transparent}
+.row-one .outcomes-inner{align-items:center;width:100%}
+.row-one .now-inner{flex:1}
+@media(max-width:880px){.row-one{grid-template-columns:1fr}}
+
+/* ROW 2 — Work Notes lane (4th column, always visible) */
+.lane-notes{border-color:rgba(167,167,243,.30);display:flex;flex-direction:column}
+.lane-notes .lane-name::before{background:var(--lav)}
+.lane-notes .lane-name{font-size:12px;font-weight:700;color:var(--text-2)}
+.lane-notes .lane-sub{font-size:10px;font-weight:600;color:var(--text-2);letter-spacing:.01em}
+.lane-notes .worknotes-area{border:none;border-radius:0 0 var(--r) var(--r);box-shadow:none;min-height:120px;max-height:44vh;flex:1;resize:none;background:transparent;padding:9px 12px}
+.lane-notes .worknotes-area:focus{border:none;box-shadow:none}
+
+/* ENHANCEMENT 3 — compact Pending cards: single meta row */
+.card-pending-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:5px}
+.pmeta{font-size:10.5px;font-weight:600;color:var(--text-2);background:none;border:1px solid var(--pink);padding:2px 9px;border-radius:20px;white-space:nowrap;line-height:1.3}
+.pmeta b{font-weight:700;color:var(--text)}
+.pmeta.push{border-color:var(--border-m)}
+.pmeta.since{border-color:var(--border);color:var(--text-3)}
+
+/* ENHANCEMENT 4 — compact ticket rows: user inline on top row */
+.ticket-user-inline{font-size:11.5px;font-weight:600;color:var(--text-2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ticket-top .ticket-num{flex:0 1 auto}
+a.ticket-num{flex:0 1 auto}
+.ticket-card .ticket-body .ticket-user{display:none}
+
+/* ENHANCEMENT 1 — Up Next drag handles + drop zone */
+.upnext-list.drag-over{outline:2px dashed var(--lav);outline-offset:3px;border-radius:var(--r-sm);background:rgba(167,167,243,.06)}
+.mini-item.dragging{opacity:.4}
+.mini-grip{font-size:11px;color:var(--text-3);cursor:grab;opacity:.25;transition:opacity .15s,color .15s;flex-shrink:0;line-height:1;margin-top:3px;user-select:none}
+.mini-item:hover .mini-grip{opacity:.7}
+.mini-grip:hover{opacity:1;color:var(--lav)}
+.mini-grip:active{cursor:grabbing}
+.lane-queue .lane-body.drag-over .card-acts{pointer-events:none}
+
+/* Independent scroll for Row 3 lists keeps the page on one screen */
+#thisweek-list{max-height:26vh;overflow-y:auto;padding-right:2px}
+.tickets-grid{max-height:26vh;overflow-y:auto;padding-right:2px}
+
+/* ============================================================
+   vNext-2 — LAYOUT OWNERSHIP (resize · collapse · maximize)
+   Mechanics only. Palette, type, borders, cards unchanged.
+   ============================================================ */
+
+/* Resize handles between panels */
+.rz-handle{flex:0 0 12px;align-self:stretch;cursor:col-resize;position:relative;background:transparent;touch-action:none}
+.rz-handle::before{content:'';position:absolute;top:10px;bottom:10px;left:50%;width:1px;transform:translateX(-50%);background:var(--border);transition:background .15s,width .15s}
+.rz-handle:hover::before,.rz-handle.rz-active::before{background:var(--lav);width:2px}
+.rz-handle.rz-disabled{pointer-events:none}
+.rz-handle.rz-disabled::before{opacity:0}
+body.rz-dragging{cursor:col-resize}
+body.rz-dragging *{cursor:col-resize!important;user-select:none}
+
+/* Panel header controls */
+.panel-head-main{display:flex;flex:1;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.panel-head-left{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden}
+.panel-caret{width:14px;height:14px;flex-shrink:0;cursor:pointer;color:var(--text-3);font-size:8px;display:flex;align-items:center;justify-content:center;transition:transform .15s,color .15s;user-select:none}
+.panel-caret:hover{color:var(--text)}
+.panel-btn{width:20px;height:20px;border:none;background:none;cursor:pointer;color:var(--text-3);display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;border-radius:6px;transition:all .15s;flex-shrink:0;font-family:var(--font)}
+.panel-btn:hover{color:var(--navy);background:rgba(255,255,255,.14)}
+.panel-btn.is-max{color:var(--c-pink-deep);background:rgba(227,170,221,.12)}
+.mini-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.mini-header .panel-head-main{flex:1}
+
+/* Collapsed rail (shared by lanes + mini-panels) */
+.panel-rail{display:none}
+.lane.collapsed .panel-rail,.mini-panel.collapsed .panel-rail{display:flex;flex-direction:column;align-items:center;gap:9px;height:100%;width:100%;padding-top:2px}
+.lane.collapsed .panel-head-main,.lane.collapsed .quick-add-wrap,.lane.collapsed .lane-body,.lane.collapsed .worknotes-area{display:none}
+.mini-panel.collapsed .panel-head-main,.mini-panel.collapsed .upnext-list,.mini-panel.collapsed .tickets-grid{display:none}
+.lane.collapsed{cursor:pointer}
+.lane.collapsed .lane-header{flex:1;flex-direction:column;border-bottom:none;padding:10px 0;align-items:center;justify-content:flex-start}
+.mini-panel.collapsed{padding:10px 0;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.mini-panel.collapsed .mini-header{margin:0;flex:1;width:100%;display:flex}
+.panel-rail .panel-caret{transform:rotate(-90deg)}
+.panel-rail-label{writing-mode:vertical-rl;text-orientation:mixed;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+.panel-rail-count{writing-mode:vertical-rl;font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.04em}
+
+/* Maximized panel — give it room (taller bodies) for long sessions */
+.lane.is-max .lane-body{max-height:72vh}
+.lane-notes.is-max .worknotes-area{max-height:72vh}
+.mini-panel.is-max .upnext-list,.mini-panel.is-max .tickets-grid{max-height:58vh!important}
+
+/* Save status pill */
+.save-status{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--text-2);letter-spacing:.01em;user-select:none}
+.save-status-dot{width:6px;height:6px;border-radius:50%;background:var(--peri);flex-shrink:0;transition:background .25s}
+.save-status.saving .save-status-dot{background:var(--olive)}
+.save-status.failed .save-status-dot{background:var(--coral)}
+.save-status.failed{color:var(--coral)}
+
+/* ============================================================
+   CONTINUITY PASS — Up Next promotion + Recent Days memory.
+   Placement & one new memory panel only; palette, type, borders,
+   cards & components inherited unchanged from the base system.
+   ============================================================ */
+
+/* Up Next — promoted to a full-width strip above the board */
+.upnext-row{padding:2px 20px 8px}
+.upnext-row .mini-panel{width:100%}
+.upnext-sub{font-size:9.5px;font-weight:600;color:var(--text-3);letter-spacing:.01em}
+.upnext-row #thisweek-list{max-height:22vh}
+
+/* Promoted Up Next collapses horizontally (header stays), not to a vertical rail */
+#panel-upnext.collapsed{padding:10px 13px;display:block;cursor:default}
+#panel-upnext.collapsed .panel-rail{display:none}
+#panel-upnext.collapsed .mini-header{margin:0}
+#panel-upnext.collapsed .panel-head-main{display:flex}
+#panel-upnext.collapsed .upnext-list{display:none}
+#panel-upnext.collapsed .panel-head-main .panel-caret{transform:rotate(-90deg)}
+
+/* RECENT DAYS — compact, expandable continuity panel */
+.recent-row{padding:0 20px 24px}
+.recent-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.recent-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;cursor:pointer;user-select:none}
+.recent-head:hover{background:rgba(255,255,255,.08)}
+.recent-head-left{display:flex;align-items:baseline;gap:9px}
+.recent-caret{font-size:8px;color:var(--text-3);transition:transform .15s;align-self:center}
+.recent-panel.collapsed .recent-caret{transform:rotate(-90deg)}
+.recent-label{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--text-2)}
+.recent-sub{font-size:11px;font-weight:600;color:var(--text-2)}
+.recent-hint{font-size:11px;font-weight:600;color:var(--text-3);white-space:nowrap}
+.recent-body{border-top:1px solid var(--border)}
+.recent-panel.collapsed .recent-body{display:none}
+.recent-day{border-bottom:1px solid var(--border)}
+.recent-day:last-child{border-bottom:none}
+.recent-day-head{display:flex;align-items:center;gap:11px;padding:9px 14px;cursor:pointer;user-select:none}
+.recent-day-head:hover{background:rgba(255,255,255,.08)}
+.recent-day-caret{font-size:7px;color:var(--text-3);transition:transform .15s;flex-shrink:0}
+.recent-day.open .recent-day-caret{transform:rotate(0deg)}
+.recent-day:not(.open) .recent-day-caret{transform:rotate(-90deg)}
+.recent-day-label{font-size:12.5px;font-weight:700;color:var(--navy);min-width:98px;flex-shrink:0}
+.recent-day-meta{font-size:11px;font-weight:500;color:var(--text-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-day-body{display:none;padding:0 14px 14px 36px;gap:20px;flex-wrap:wrap}
+.recent-day.open .recent-day-body{display:flex}
+.recent-col{flex:1 1 190px;min-width:160px}
+.recent-col-label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px}
+.recent-col ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.recent-col li{font-size:11.5px;font-weight:500;color:var(--text);line-height:1.4;padding-left:13px;position:relative}
+.recent-col li::before{content:'';position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--text-3)}
+.recent-col.done li::before{background:var(--peri)}
+.recent-col.carry li::before{background:var(--pink)}
+.recent-col-empty{font-size:11px;font-weight:500;color:var(--text-3);font-style:italic}
+.recent-empty{padding:13px 14px;font-size:11px;font-weight:600;color:var(--text-3);font-style:italic}
+
+/* ============================================================
+   PRIORITY + FOCUS PASS — operational hierarchy.
+   T1/T2 tiers, glow on Current Focus, sticky focus row,
+   overdue Pending, lane stage captions, day-progress bar.
+   Palette & type inherited from base system (no new colors).
+   ============================================================ */
+
+/* Card-action row can wrap so the extra Flag button never overflows */
+.card-acts{flex-wrap:wrap;justify-content:flex-end}
+
+/* PRIORITY TIERS — T1 Soft Pink, T2 Periwinkle: elevation + accent edge + pill */
+.pri-pill{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.04em;padding:1px 7px;border-radius:20px;margin-right:6px;vertical-align:middle;line-height:1.55}
+.pri-pill-1{background:var(--c-pink);color:#fff}
+.pri-pill-2{background:var(--c-peri);color:#fff}
+.card.pri-1{border:1px solid var(--c-pink);border-left:3px solid var(--c-pink);background:linear-gradient(0deg,rgba(227,170,221,.09),rgba(227,170,221,.09)),var(--card);box-shadow:0 3px 13px rgba(227,170,221,.24)}
+.card.pri-1:hover{border-color:var(--c-pink);box-shadow:0 6px 20px rgba(227,170,221,.32)}
+.card.pri-2{border-left:3px solid var(--c-peri);background:linear-gradient(0deg,rgba(200,168,233,.07),rgba(200,168,233,.07)),var(--card);box-shadow:0 2px 10px rgba(200,168,233,.20)}
+.card.pri-2:hover{border-left-color:var(--c-peri);box-shadow:0 4px 15px rgba(200,168,233,.28)}
+.card-btn.flag{font-weight:800;letter-spacing:.02em}
+.card-btn.flag:hover{border-color:var(--c-pink);color:var(--c-pink-deep);background:rgba(227,170,221,.10)}
+.card-btn.flag.on1{border-color:var(--c-pink);color:var(--c-pink-deep);background:rgba(227,170,221,.14)}
+.card-btn.flag.on2{border-color:var(--c-peri);color:var(--c-peri-deep);background:rgba(200,168,233,.14)}
+/* Fade secondary cards once a lane holds flagged work — keeps T1/T2 dominant */
+.lane-has-pri .card:not(.pri-1):not(.pri-2):not(.card-focused):not(.card-overdue){opacity:.5;transition:opacity .2s}
+.lane-has-pri .card:hover{opacity:1}
+
+/* OVERDUE / LONG-WAITING Pending — soft blush wash + warning chip */
+.card.card-overdue{border-color:var(--c-rose);background:linear-gradient(0deg,rgba(215,166,162,.12),rgba(215,166,162,.12)),var(--card)}
+.pmeta.since.warn{border-color:var(--c-rose);color:var(--c-rose-deep);background:rgba(215,166,162,.18);font-weight:800}
+
+/* CURRENT FOCUS — strongest anchor on screen (peach dominance, calm/static) */
+.now-inner.has-focus{
+  background:rgba(246,200,186,.18);
+  border:2px solid rgba(246,200,186,.65);
+  box-shadow:0 10px 30px rgba(246,200,186,.25);
+  transform:scale(1.01);
+  transform-origin:left center;
+  position:relative;
+  z-index:10;
+}
+.card.card-focused{border-color:var(--c-peach);box-shadow:0 0 0 2px var(--c-peach),0 7px 20px rgba(246,200,186,.38);transform:scale(1.02);transform-origin:left center}
+.card.card-focused .card-title{font-weight:700}
+
+/* Keep Commitments + Current Focus pinned while scanning the board */
+.row-one{position:sticky;top:52px;z-index:90;background:var(--cream)}
+
+@media (prefers-reduced-motion:reduce){.now-pulse{animation:none}}
+
+/* LANE STAGE CAPTIONS — Push → Continue → Close, state-coded */
+.lane-stage{font-size:8.5px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:3px;white-space:nowrap;color:var(--text-3);background:rgba(255,255,255,.14)}
+.lane-queue .lane-stage{color:var(--c-lav-deep);background:rgba(167,167,243,.18)}
+.lane-waiting .lane-stage{color:var(--c-rose-deep);background:rgba(215,166,162,.20)}
+.lane-done .lane-stage{color:var(--c-ice-deep);background:rgba(195,199,244,.32)}
+
+/* DAY-COMPLETION PROGRESS BAR (in the Done lane) */
+.day-progress{height:6px;margin:0 8px 8px;border-radius:20px;background:rgba(255,255,255,.18);overflow:hidden;position:relative}
+.day-progress-fill{height:100%;width:0;background:var(--c-ice-deep);border-radius:20px;transition:width .45s ease}
+.lane.collapsed .day-progress{display:none}
+
+/* ============================================================
+   STABILIZATION PASS — Queue ↔ Up Next clarity, calm interactions.
+   ============================================================ */
+
+/* QUEUE = neutral backlog (lavender, understated, full-list feel) */
+.lane-queue{border-color:rgba(167,167,243,.42)}
+.lane-queue .lane-name::before{background:var(--c-lav)}
+
+/* UP NEXT = curated, pre-committed subset (periwinkle selection zone) */
+#panel-upnext{border-color:rgba(200,168,233,.45);box-shadow:0 2px 12px rgba(200,168,233,.20);background:linear-gradient(0deg,rgba(200,168,233,.05),rgba(200,168,233,.05)),var(--card)}
+#panel-upnext .mini-label{color:var(--c-peri-deep)}
+.upnext-list{gap:6px;max-height:19vh}
+.upnext-list .mini-item{border-bottom:none;background:var(--card);border:1px solid rgba(200,168,233,.5);border-radius:9px;padding:7px 10px;box-shadow:0 1px 2px rgba(142,110,201,.06);transition:box-shadow .15s,border-color .15s}
+.upnext-list .mini-item:hover{border-color:var(--c-peri);box-shadow:0 3px 10px rgba(200,168,233,.22)}
+.upnext-list .mini-marker{color:var(--c-peri-deep)}
+.upnext-list .mini-text{font-weight:600}
+.upnext-list.drag-over{outline:2px dashed var(--c-peri);outline-offset:3px;border-radius:var(--r-sm);background:rgba(200,168,233,.10)}
+
+/* Calm, soft drag-over for board lanes */
+.lane-body.drag-over{background:rgba(167,167,243,.07);outline:2px dashed rgba(167,167,243,.55);outline-offset:-6px}
+
+/* Softer card hover — gentle lift only */
+.card{transition:transform .2s cubic-bezier(.2,0,0,1),box-shadow .2s ease-in-out,border-color .15s,opacity .2s,filter .2s ease-in-out}
+.card:hover{border-color:var(--border-m);box-shadow:0 10px 26px rgba(20,20,26,.16);transform:translateY(-1px)}
+/* ============================================================
+   ENVIRONMENTAL DEPTH — elevation hierarchy: page > sections > panels > controls > focused object.
+   Page = atmospheric background (body). Sections = large diffused neutral shadow grounding each
+   panel group. Panels = existing --shadow (unchanged). Controls = no shadow (flattest tier).
+   Focused object = existing accent-glow states (unchanged, sits above all of the above).
+   ============================================================ */
+.row-one,.board-wrap,.bottom-row,.upnext-row,.recent-row{
+  box-shadow:0 60px 100px -45px rgba(18,16,38,.20);
+}
+body:has(.now-inner.has-focus) .card{opacity:.5;filter:grayscale(20%)}
+</style>
+<link id="gfont-Poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Open-Sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">Execution Tower<span class="logo-dot"></span></div>
+    <div class="date-badge" id="date-display"></div>
+    <div class="save-status saved" id="save-status" title="Autosaved to this browser">
+      <span class="save-status-dot"></span>
+      <span id="save-status-text">Saved</span>
+    </div>
+  </div>
+  <div class="topbar-capture">
+    <input type="text" class="capture-input" id="top-capture" placeholder="Capture… (RITM/INC → ticket · anything else → Queue)" autocomplete="off" onkeydown="quickCapture(event)" />
+  </div>
+  <div class="topbar-right">
+    <div class="done-counter">Done Today: <span id="done-today-count">0</span></div>
+    <button class="btn" onclick="newDay()">New Day ↺</button>
+    <button class="btn btn-clean" onclick="resetSession()" title="Clear all execution data for a fresh shift">Start Clean Session</button>
+  </div>
+</div>
+
+<!-- ROW 1: TODAY'S COMMITMENTS + CURRENT FOCUS (side by side) -->
+<div class="row-one">
+<!-- OUTCOMES -->
+<div class="outcomes-strip">
+  <div class="outcomes-inner">
+    <div class="outcomes-head">
+      <span class="outcomes-label">Today's Commitments</span>
+      <span class="outcomes-sub">What needs to move today?</span>
+    </div>
+    <div class="outcomes-list" id="outcomes-list"></div>
+    <button class="outcomes-add" id="outcomes-add-btn" onclick="addOutcome()">+ Add commitment</button>
+  </div>
+</div>
+
+<!-- CURRENT FOCUS -->
+<div class="now-strip">
+  <div class="now-inner" id="now-inner">
+    <span class="now-check" id="now-check" onclick="completeFocus()" title="Mark focused card done"></span>
+    <span class="now-pulse"></span>
+    <span class="now-label">Current Focus</span>
+    <div class="now-text" id="now-text" data-placeholder="No active focus"></div>
+    <span class="now-clear" onclick="clearFocus()">✕</span>
+  </div>
+</div>
+</div>
+
+<!-- UP NEXT (promoted above the board for early daily scanning) -->
+<div class="upnext-row">
+  <div class="mini-panel" id="panel-upnext">
+    <div class="mini-header">
+      <div class="panel-head-main">
+        <div class="panel-head-left">
+          <span class="panel-caret" onclick="toggleCollapse('upnext')" title="Collapse panel">▼</span>
+          <span class="mini-label">Up Next</span>
+          <span class="upnext-sub">Likely to become today's work</span>
+        </div>
+        <div class="mini-actions">
+          <button class="mini-add" onclick="addMini('thisweek')" title="Add">+</button>
+        </div>
+      </div>
+      <div class="panel-rail" onclick="toggleCollapse('upnext')" title="Expand panel">
+        <span class="panel-caret">▶</span>
+        <span class="panel-rail-label">Up Next</span>
+        <span class="panel-rail-count" id="rail-count-upnext"></span>
+      </div>
+    </div>
+    <div id="thisweek-list" class="upnext-list"
+      ondragover="onUpNextDragOver(event)" ondrop="onUpNextDrop(event)" ondragleave="onUpNextDragLeave(event)"></div>
+  </div>
+</div>
+
+<!-- BOARD -->
+<div class="board-wrap">
+  <div class="board">
+    <div class="lane lane-queue" id="lane-queue">
+      <div class="lane-header">
+        <div class="panel-head-main">
+          <div class="panel-head-left">
+            <span class="panel-caret" onclick="toggleCollapse('queue')" title="Collapse panel">▼</span>
+            <span class="lane-name">Queue</span>
+            <span class="lane-stage">① Push</span>
+          </div>
+          <div class="lane-actions">
+            <span class="lane-count" id="queue-count"></span>
+            <button class="panel-btn" data-exp="queue" onclick="toggleMaximize('queue')" title="Expand panel">⤢</button>
+            <button class="lane-add" onclick="openModal('queue')" title="Add">+</button>
+          </div>
+        </div>
+        <div class="panel-rail" onclick="toggleCollapse('queue')" title="Expand panel">
+          <span class="panel-caret">▶</span>
+          <span class="panel-rail-label">Queue</span>
+          <span class="panel-rail-count" id="rail-count-queue"></span>
+        </div>
+      </div>
+      <div class="quick-add-wrap">
+        <input type="text" class="quick-add-input" id="quick-add-queue" placeholder="Type to add, press Enter…" autocomplete="off" onkeydown="quickAdd(event)" />
+      </div>
+      <div class="lane-body" id="body-queue"
+        ondragover="onDragOver(event)" ondrop="onDrop(event,'queue')" ondragleave="onDragLeave(event)"></div>
+    </div>
+    <div class="rz-handle" data-left="queue" data-right="waiting" title="Drag to resize"></div>
+    <div class="lane lane-waiting" id="lane-waiting">
+      <div class="lane-header">
+        <div class="panel-head-main">
+          <div class="panel-head-left">
+            <span class="panel-caret" onclick="toggleCollapse('waiting')" title="Collapse panel">▼</span>
+            <span class="lane-name">Pending</span>
+            <span class="lane-stage">② Continue</span>
+          </div>
+          <div class="lane-actions">
+            <span class="lane-count" id="waiting-count"></span>
+            <button class="panel-btn" data-exp="waiting" onclick="toggleMaximize('waiting')" title="Expand panel">⤢</button>
+            <button class="lane-add" onclick="openModal('waiting')" title="Add">+</button>
+          </div>
+        </div>
+        <div class="panel-rail" onclick="toggleCollapse('waiting')" title="Expand panel">
+          <span class="panel-caret">▶</span>
+          <span class="panel-rail-label">Pending</span>
+          <span class="panel-rail-count" id="rail-count-waiting"></span>
+        </div>
+      </div>
+      <div class="lane-body" id="body-waiting"
+        ondragover="onDragOver(event)" ondrop="onDrop(event,'waiting')" ondragleave="onDragLeave(event)"></div>
+    </div>
+    <div class="rz-handle" data-left="waiting" data-right="done" title="Drag to resize"></div>
+    <div class="lane lane-done" id="lane-done">
+      <div class="lane-header">
+        <div class="panel-head-main">
+          <div class="panel-head-left">
+            <span class="panel-caret" onclick="toggleCollapse('done')" title="Collapse panel">▼</span>
+            <span class="lane-name">Done Today</span>
+            <span class="lane-stage">③ Close</span>
+          </div>
+          <div class="lane-actions">
+            <span class="lane-count" id="done-count"></span>
+            <button class="panel-btn" data-exp="done" onclick="toggleMaximize('done')" title="Expand panel">⤢</button>
+            <button class="clear-done-btn" onclick="clearDone()">Archive</button>
+          </div>
+        </div>
+        <div class="panel-rail" onclick="toggleCollapse('done')" title="Expand panel">
+          <span class="panel-caret">▶</span>
+          <span class="panel-rail-label">Done Today</span>
+          <span class="panel-rail-count" id="rail-count-done"></span>
+        </div>
+      </div>
+      <div class="day-progress" id="day-progress" title="Today's completion"><div class="day-progress-fill" id="day-progress-fill"></div></div>
+      <div class="lane-body" id="body-done"
+        ondragover="onDragOver(event)" ondrop="onDrop(event,'done')" ondragleave="onDragLeave(event)"></div>
+    </div>
+    <div class="rz-handle" data-left="done" data-right="notes" title="Drag to resize"></div>
+    <div class="lane lane-notes" id="lane-notes">
+      <div class="lane-header">
+        <div class="panel-head-main">
+          <div class="panel-head-left">
+            <span class="panel-caret" onclick="toggleCollapse('notes')" title="Collapse panel">▼</span>
+            <span class="lane-name">Work Notes</span>
+            <span class="lane-sub">Always-on scratchpad</span>
+          </div>
+          <div class="lane-actions">
+            <button class="panel-btn" data-exp="notes" onclick="toggleMaximize('notes')" title="Expand panel">⤢</button>
+          </div>
+        </div>
+        <div class="panel-rail" onclick="toggleCollapse('notes')" title="Expand panel">
+          <span class="panel-caret">▶</span>
+          <span class="panel-rail-label">Notes</span>
+          <span class="panel-rail-count" id="rail-count-notes"></span>
+        </div>
+      </div>
+      <textarea id="worknotes" class="worknotes-area" spellcheck="false" placeholder="Jot anything here… phone numbers, vendor notes, inventory, links, reminders. Enter starts a new bullet." oninput="onWorkNotesInput()" onkeydown="onWorkNotesKey(event)" onfocus="onWorkNotesFocus()"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM ROW: ACTIVE TICKETS -->
+<div class="bottom-row">
+  <div class="mini-panel tickets-panel" id="panel-tickets">
+    <div class="mini-header">
+      <div class="panel-head-main">
+        <div class="panel-head-left">
+          <span class="panel-caret" onclick="toggleCollapse('tickets')" title="Collapse panel">▼</span>
+          <span class="mini-label">Active Tickets <span id="tickets-count" class="tickets-num"></span></span>
+        </div>
+        <div class="mini-actions">
+          <button class="panel-btn" data-exp="tickets" onclick="toggleMaximize('tickets')" title="Expand panel">⤢</button>
+          <button class="mini-add" onclick="openTicketModal()" title="Add ticket">+</button>
+        </div>
+      </div>
+      <div class="panel-rail" onclick="toggleCollapse('tickets')" title="Expand panel">
+        <span class="panel-caret">▶</span>
+        <span class="panel-rail-label">Active Tickets</span>
+        <span class="panel-rail-count" id="rail-count-tickets"></span>
+      </div>
+    </div>
+    <div id="tickets-list" class="tickets-grid"
+      ondragover="onTicketDragOver(event)" ondrop="onTicketDrop(event)" ondragleave="onTicketDragLeave(event)"></div>
+  </div>
+</div>
+
+<!-- RECENT DAYS — operational memory, hidden by default -->
+<div class="recent-row">
+  <div class="recent-panel collapsed" id="recent-panel">
+    <div class="recent-head" onclick="toggleRecent()">
+      <div class="recent-head-left">
+        <span class="recent-caret">▼</span>
+        <span class="recent-label">Recent Days</span>
+        <span class="recent-sub">What was I working on?</span>
+      </div>
+      <span class="recent-hint" id="recent-hint"></span>
+    </div>
+    <div class="recent-body" id="recent-body"></div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="overlay" id="add-overlay" onclick="closeAddOnBg(event)">
+  <div class="modal">
+    <h3 id="modal-title">Add to Queue</h3>
+    <div class="form-row">
+      <label>Task</label>
+      <input type="text" id="f-title" placeholder="What needs to happen?" autocomplete="off" />
+    </div>
+    <div class="form-row" id="waiton-row" style="display:none">
+      <label>Pending On</label>
+      <input type="text" id="f-waiton" placeholder="e.g. Juan, T-Mobile, Vendor" autocomplete="off" />
+    </div>
+    <div class="form-row" id="nextpush-row" style="display:none">
+      <label>Next Push <span style="font-size:9px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:500">(when do I check again?)</span></label>
+      <input type="text" id="f-nextpush" placeholder="e.g. Thursday, after lunch, Mon AM" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>Notes <span style="font-size:9px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:500">(context, optional)</span></label>
+      <textarea id="f-notes" rows="4" placeholder="e.g. Verify GTNA vs Trading inventory. William has a repaired unit at his desk."></textarea>
+    </div>
+    <div class="modal-acts">
+      <button class="btn" onclick="closeAdd()">Cancel</button>
+      <button class="btn btn-save" onclick="saveAdd()">Add ⌘↵</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="overlay" id="edit-overlay" onclick="closeEditOnBg(event)">
+  <div class="modal">
+    <h3>Edit Card</h3>
+    <div class="form-row">
+      <label>Task</label>
+      <input type="text" id="e-title" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>Priority</label>
+      <select id="e-pri">
+        <option value="0">None</option>
+        <option value="1">P1 — High (boldest accent)</option>
+        <option value="2">P2 — Medium</option>
+      </select>
+    </div>
+    <div class="form-row" id="e-waiton-row">
+      <label>Pending On</label>
+      <input type="text" id="e-waiton" autocomplete="off" />
+    </div>
+    <div class="form-row" id="e-nextpush-row">
+      <label>Next Push <span style="font-size:9px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:500">(when do I check again?)</span></label>
+      <input type="text" id="e-nextpush" placeholder="e.g. Thursday, after lunch" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>Notes</label>
+      <textarea id="e-notes" rows="4"></textarea>
+    </div>
+    <div class="form-row">
+      <label>Move to Lane</label>
+      <select id="e-lane">
+        <option value="queue">Queue</option>
+        <option value="waiting">Pending</option>
+        <option value="done">Done Today</option>
+      </select>
+    </div>
+    <div class="modal-acts">
+      <button class="btn" onclick="closeEdit()">Cancel</button>
+      <button class="btn btn-save" onclick="saveEdit()">Save ⌘↵</button>
+    </div>
+  </div>
+</div>
+
+<!-- TICKET MODAL -->
+<div class="overlay" id="ticket-overlay" onclick="closeTicketOnBg(event)">
+  <div class="modal">
+    <h3 id="ticket-modal-title">Add Ticket</h3>
+    <div class="form-row">
+      <label>Ticket Number</label>
+      <input type="text" id="t-number" placeholder="e.g. RITM2328798" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>User</label>
+      <input type="text" id="t-user" placeholder="e.g. Caleb Fielder" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>Next Move</label>
+      <input type="text" id="t-move" placeholder="e.g. Confirm approval" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>Ticket URL <span style="font-size:9px;color:var(--text-3);text-transform:none;letter-spacing:0;font-weight:500">(optional — makes the number clickable)</span></label>
+      <input type="text" id="t-url" placeholder="Paste the ServiceNow link" autocomplete="off" />
+    </div>
+    <div class="form-row">
+      <label>Status</label>
+      <select id="t-status">
+        <option value="Pending">Pending</option>
+        <option value="Waiting User">Waiting User</option>
+        <option value="Waiting Vendor">Waiting Vendor</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Ready To Close">Ready To Close</option>
+        <option value="Closed">Closed</option>
+      </select>
+    </div>
+    <div class="modal-acts">
+      <button class="btn" onclick="closeTicketModal()">Cancel</button>
+      <button class="btn btn-save" onclick="saveTicket()">Save ⌘↵</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let state = {
+  now: '',
+  outcomes: [],
+  cards: { queue: [], waiting: [], done: [] },
+  thisweek: [],
+  lastDay: ''
+};
+let dragId = null, editId = null, addLane = null, saveTimer = null;
+
+function init() {
+  document.getElementById('date-display').textContent = fmtDate(new Date());
+  loadState(); renderAll(); checkNewDay();
+}
+function fmtDate(d) { return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); }
+function uid() { return Math.random().toString(36).slice(2,9); }
+function now() { return new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); }
+function escHtml(s) { if(!s)return''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function save() {
+  document.getElementById('save-dot').classList.add('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try { localStorage.setItem('ops_ngc_v1', JSON.stringify(state)); } catch(e) {}
+    document.getElementById('save-dot').classList.remove('saving');
+  }, 500);
+}
+// Clean-start policy: no demo, seed, or placeholder data is EVER generated.
+// A fresh install opens with empty lanes; only real user-entered data is persisted.
+function seedDemo(){ /* intentionally empty — zero fake data policy */ }
+function loadState() {
+  let raw=null;
+  try { raw = localStorage.getItem('ops_ngc_v1'); if(raw) state = JSON.parse(raw); } catch(e) {}
+  // CLEAN START — no seed/demo data. If there is no saved user data, the empty
+  // structure declared above + the guards below leave every lane empty.
+  if(!state.cards) state.cards={queue:[],waiting:[],done:[]};
+  ['queue','waiting','done'].forEach(l => { if(!state.cards[l]) state.cards[l]=[]; });
+  if(!state.thisweek) state.thisweek=[];
+  if(!state.tickets) state.tickets=[];
+  // migrate tickets to structured ServiceNow workspace shape
+  state.tickets=(state.tickets||[]).map(t=>{
+    if(t && (t.number!==undefined||t.user!==undefined||t.nextMove!==undefined)){
+      return {id:t.id||uid(),number:t.number||'',user:t.user||'',nextMove:t.nextMove||'',url:t.url||'',status:normStatus(t.status),collapsed:!!t.collapsed};
+    }
+    const parts=((t&&t.text)||'').split('|').map(s=>s.trim());
+    return {id:(t&&t.id)||uid(),number:parts[0]||'',user:parts[1]||'',nextMove:parts[2]||'',url:'',status:'Pending',collapsed:false};
+  });
+  if(!state.now) state.now='';
+  if(state.focusId===undefined) state.focusId=null;
+  if(!state.workNotes) state.workNotes='';
+  if(!state.outcomes) state.outcomes=[];
+  if(!state.followups) state.followups=[];
+  if(!state.recentDays) state.recentDays=[];
+  ['queue','waiting','done'].forEach(l => (state.cards[l]||[]).forEach(c => {
+    if (c.needs && c.needs.length) {
+      const t = c.needs.map(n => '\u2022 ' + n.text).join('\n');
+      c.notes = (c.notes ? c.notes + '\n' : '') + t;
+      delete c.needs;
+    }
+  }));
+}
+function renderAll() {
+  renderOutcomes();
+  renderFocus();
+  renderWorkNotes();
+  ['queue','waiting','done'].forEach(renderLane);
+  renderMini('thisweek','thisweek-list','●');
+  renderTickets();
+  renderRecentDays();
+  updateCounts();
+}
+
+// ---- OUTCOMES ----
+function renderOutcomes() {
+  const list = document.getElementById('outcomes-list');
+  const items = state.outcomes || [];
+  const addBtn = document.getElementById('outcomes-add-btn');
+  if (addBtn) addBtn.classList.toggle('hidden', items.length >= 2);
+  if (!items.length) { list.innerHTML = '<span style="font-size:11px;color:var(--text-3);font-weight:500">No commitments set</span>'; return; }
+  list.innerHTML = items.map((o,i) => `
+    <div class="outcome-item${o.done?' done':''}">
+      <div class="outcome-check" onclick="toggleOutcome(${i})"></div>
+      <div class="outcome-text" contenteditable="true" spellcheck="false"
+        onblur="updateOutcome(${i},this.textContent)"
+        onkeydown="outcomeKeydown(event,${i})">${escHtml(o.text)}</div>
+      <span class="outcome-del" onclick="delOutcome(${i})">✕</span>
+    </div>`).join('');
+}
+function addOutcome() {
+  if ((state.outcomes||[]).length >= 2) { toast('Max 2 outcomes'); return; }
+  if (!state.outcomes) state.outcomes = [];
+  state.outcomes.push({ id: uid(), text: 'New commitment', done: false });
+  renderOutcomes(); save();
+  setTimeout(() => {
+    const els = document.querySelectorAll('.outcome-text');
+    if (els.length) { const last = els[els.length-1]; last.focus(); selectAll(last); }
+  }, 40);
+}
+function toggleOutcome(i) { state.outcomes[i].done = !state.outcomes[i].done; renderOutcomes(); save(); }
+function updateOutcome(i,txt) { state.outcomes[i].text = txt.trim()||'Commitment'; save(); }
+function delOutcome(i) { state.outcomes.splice(i,1); renderOutcomes(); save(); }
+
+// ---- CURRENT FOCUS ----
+function toggleFocus(id){
+  state.focusId = (state.focusId===id) ? null : id;
+  renderFocus(); renderLane('queue'); save();
+}
+function clearFocus(){ state.focusId=null; renderFocus(); renderLane('queue'); save(); }
+function renderFocus(){
+  const el=document.getElementById('now-text');
+  const inner=document.getElementById('now-inner');
+  const card = state.focusId ? (state.cards.queue||[]).find(c=>c.id===state.focusId) : null;
+  if(!card){ state.focusId=null; el.textContent=''; inner.classList.remove('has-focus'); return; }
+  el.textContent=card.title;
+  inner.classList.add('has-focus');
+}
+function completeFocus(){
+  if(!state.focusId)return;
+  completeCard(state.focusId);
+}
+
+// ---- WAITING SINCE HELPER ----
+function waitingSince(addedIso) {
+  if (!addedIso) return '';
+  try {
+    const added = new Date(addedIso);
+    const now = new Date();
+    const days = Math.floor((now - added) / 86400000);
+    const label = added.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    if (days === 0) return 'Waiting Since Today';
+    if (days === 1) return 'Waiting 1 Day';
+    return `Waiting ${days} Days`;
+  } catch(e) { return ''; }
+}
+function waitingSinceShort(addedIso) {
+  if (!addedIso) return '';
+  try {
+    const days = Math.floor((new Date() - new Date(addedIso)) / 86400000);
+    if (days <= 0) return 'Today';
+    return days + 'd';
+  } catch(e) { return ''; }
+}
+
+function renderWorkNotes(){ const el=document.getElementById('worknotes'); if(el) el.value=state.workNotes||''; }
+function onWorkNotesInput(){ state.workNotes=document.getElementById('worknotes').value; save(); }
+const WN_BULLET='• ';
+function onWorkNotesFocus(){
+  const el=document.getElementById('worknotes');
+  if(el.value==='' ){ el.value=WN_BULLET; setWNCaret(el,el.value.length); state.workNotes=el.value; save(); }
+}
+function onWorkNotesKey(e){
+  const el=e.target;
+  if(e.key==='Enter'){
+    e.preventDefault();
+    const start=el.selectionStart, end=el.selectionEnd;
+    const insert='\n'+WN_BULLET;
+    el.value=el.value.slice(0,start)+insert+el.value.slice(end);
+    setWNCaret(el,start+insert.length);
+    onWorkNotesInput();
+  } else if(e.key==='Backspace'){
+    // if deleting back into a bare bullet, remove whole bullet+newline cleanly
+    const start=el.selectionStart;
+    if(start===el.selectionEnd){
+      const before=el.value.slice(0,start);
+      if(before.endsWith('\n'+WN_BULLET)){
+        e.preventDefault();
+        el.value=el.value.slice(0,start-(1+WN_BULLET.length))+el.value.slice(start);
+        setWNCaret(el,start-(1+WN_BULLET.length));
+        onWorkNotesInput();
+      } else if(before===WN_BULLET){
+        e.preventDefault();
+        el.value=el.value.slice(start);
+        setWNCaret(el,0);
+        onWorkNotesInput();
+      }
+    }
+  }
+}
+function setWNCaret(el,pos){ requestAnimationFrame(()=>{ el.focus(); el.setSelectionRange(pos,pos); }); }
+
+const EMPTY = { queue:'No items in Queue', waiting:'No blocked items', done:'No completed work' };
+function renderLane(lane) {
+  const body = document.getElementById('body-'+lane);
+  const cards = state.cards[lane]||[];
+  // fade non-priority cards only once this lane holds a flagged (T1/T2) item
+  const hasPri = (lane==='queue'||lane==='waiting') && cards.some(c=>c.pri);
+  body.classList.toggle('lane-has-pri', hasPri);
+  if(!cards.length){ body.innerHTML=`<div class="lane-empty">${EMPTY[lane]}</div>`; return; }
+  body.innerHTML = cards.map(c => cardHTML(c,lane)).join('');
+}
+function cardHTML(c, lane) {
+  const isDone = lane==='done';
+  const isPending = lane==='waiting';
+  const isQueue = lane==='queue';
+  const others = ['queue','waiting','done'].filter(l=>l!==lane);
+  const labels = {queue:'Queue',waiting:'Pending',done:'Done Today'};
+  const ts = isDone && c.doneAt ? c.doneAt : (isPending ? '' : (c.addedAt||''));
+  const since = waitingSinceShort(c.addedIso||'');
+  const pri = !isDone ? (c.pri||0) : 0;
+  const priPill = pri ? `<span class="pri-pill pri-pill-${pri}">P${pri}</span>` : '';
+  // long-waiting Pending cards (3+ days) flag as overdue for follow-up
+  const waitDays = c.addedIso ? Math.floor((new Date()-new Date(c.addedIso))/86400000) : 0;
+  const overdue = isPending && waitDays>=3;
+  const sinceSpan = since ? `<span class="pmeta since${overdue?' warn':''}">${overdue?'⚠ ':''}${since}${waitDays>=1?' waiting':''}</span>` : '';
+  const pendingMeta = isPending ? `<div class="card-pending-meta">${c.waiton?`<span class="pmeta">Pending: <b>${escHtml(c.waiton)}</b></span>`:''}${c.nextPush?`<span class="pmeta push">Push: <b>${escHtml(c.nextPush)}</b></span>`:''}${sinceSpan}</div>` : '';
+  const titleRow = isQueue
+    ? `<div class="card-title-row"><span class="card-check" onclick="completeCard('${c.id}')"></span><div class="card-title">${priPill}${escHtml(c.title)}</div></div>`
+    : `<div class="card-title">${priPill}${escHtml(c.title)}</div>`;
+  return `<div class="card${isDone?' done-card':''}${pri?(' pri-'+pri):''}${overdue?' card-overdue':''}${isQueue&&c.id===state.focusId?' card-focused':''}" id="card-${c.id}" draggable="true"
+    ondragstart="onDragStart(event,'${c.id}')" ondragend="onDragEnd()">
+    ${titleRow}
+    ${c.carry&&!isDone?`<div class="card-carry">Carryover</div>`:''}
+    ${pendingMeta}
+    ${c.notes&&!isDone?`<div class="card-notes">${escHtml(c.notes)}</div>`:''}
+    <div class="card-footer">
+      <span class="card-ts">${ts}</span>
+      <div class="card-acts">
+        ${!isDone?`<button class="card-btn flag${pri?(' on'+pri):''}" onclick="cyclePriority('${c.id}','${lane}')" title="Cycle priority — P1 → P2 → none">${pri?('P'+pri):'⚑'}</button>`:''}
+        ${isDone?`<button class="card-btn" onclick="restoreCard('${c.id}')">Restore</button>`:''}
+        ${!isDone?`<button class="card-btn" onclick="openEdit('${c.id}','${lane}')">Edit</button>`:''}
+        ${isQueue?`<button class="card-btn${c.id===state.focusId?' is-focus':''}" onclick="toggleFocus('${c.id}')">${c.id===state.focusId?'★ Focused':'Focus'}</button>`:''}
+        ${isQueue?`<button class="card-btn to-wait" onclick="quickPending('${c.id}','${lane}')">→ Pending</button>`:''}
+        ${!isDone?`<select class="move-select" onchange="moveCard('${c.id}','${lane}',this.value);this.value=''" title="Move to...">
+          <option value="">Move →</option>
+          ${others.map(l=>`<option value="${l}">${labels[l]}</option>`).join('')}
+        </select>`:''}
+        <button class="card-btn del" onclick="deleteCard('${c.id}','${lane}')">✕</button>
+      </div>
+    </div>
+  </div>`;
+}
+// Cycle a card's priority: none → P1 → P2 → none
+function cyclePriority(id,lane){
+  if(lane==='done')return;
+  const card=(state.cards[lane]||[]).find(c=>c.id===id);
+  if(!card)return;
+  card.pri=((card.pri||0)+1)%3;
+  renderLane(lane); save();
+}
+// Fill the Done-lane progress bar with today's completion rate (done vs. open actionable)
+function updateDayProgress(){
+  const fill=document.getElementById('day-progress-fill');
+  if(!fill)return;
+  const done=(state.cards.done||[]).length;
+  const open=(state.cards.queue||[]).length;
+  const total=done+open;
+  const pct=total?Math.round(done/total*100):0;
+  fill.style.width=pct+'%';
+  const bar=document.getElementById('day-progress');
+  if(bar) bar.title=`Today's completion — ${done} of ${total} cleared (${pct}%)`;
+}
+
+function onDragStart(e,id){ dragId=id; setTimeout(()=>{const el=document.getElementById('card-'+id);if(el)el.classList.add('dragging');},0); }
+function onDragEnd(){ if(dragId){const el=document.getElementById('card-'+dragId);if(el)el.classList.remove('dragging');}dragId=null; }
+function onDragOver(e){ e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onDragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function onDrop(e,target){
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if(upNextDragId){
+    if(target==='queue') convertUpNextToQueue(upNextDragId,e.currentTarget,e.clientY);
+    return;
+  }
+  if(!dragId)return;
+  const srcLane=['queue','waiting','done'].find(l=>state.cards[l].find(c=>c.id===dragId));
+  if(!srcLane)return;
+  if(srcLane===target){ reorderWithinLane(dragId,target,e.currentTarget,e.clientY); return; }
+  if(target==='waiting'){
+    const card=state.cards[srcLane].find(c=>c.id===dragId);
+    if(!card.waiton){const w=prompt('Pending on whom/what?','');if(w===null||!w.trim())return;card.waiton=w.trim();}
+    if(!card.nextPush){const np=prompt('Next push — when do you check again?','');if(np===null||!np.trim())return;card.nextPush=np.trim();}
+    card.addedIso=card.addedIso||new Date().toISOString();
+  }
+  moveCard(dragId,srcLane,target);
+}
+function getDragAfterElement(container,y){
+  const els=[...container.querySelectorAll('.card:not(.dragging)')];
+  return els.reduce((closest,child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0&&offset>closest.offset){return{offset,element:child};}
+    return closest;
+  },{offset:-Infinity,element:null}).element;
+}
+function reorderWithinLane(id,lane,container,y){
+  const arr=state.cards[lane];
+  const from=arr.findIndex(c=>c.id===id);
+  if(from===-1)return;
+  const after=getDragAfterElement(container,y);
+  const [card]=arr.splice(from,1);
+  if(!after){ arr.push(card); }
+  else {
+    const afterId=after.id.replace('card-','');
+    let idx=arr.findIndex(c=>c.id===afterId);
+    if(idx===-1)idx=arr.length;
+    arr.splice(idx,0,card);
+  }
+  renderLane(lane); renderFocus(); save();
+}
+
+// ---- ENHANCEMENT 1: Queue ↔ Up Next drag & drop ----
+let upNextDragId=null;
+function onUpNextDragStart(e,id){
+  upNextDragId=id; if(e.stopPropagation)e.stopPropagation();
+  if(e.dataTransfer){ e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain',id);}catch(_){}}
+  const el=document.getElementById('mini-thisweek-'+id);
+  setTimeout(()=>{ if(el)el.classList.add('dragging'); },0);
+}
+function onUpNextDragEnd(){
+  const el=document.getElementById('mini-thisweek-'+upNextDragId);
+  if(el)el.classList.remove('dragging');
+  upNextDragId=null;
+}
+function onUpNextDragOver(e){
+  if(!upNextDragId && !dragId) return;
+  e.preventDefault(); e.currentTarget.classList.add('drag-over');
+}
+function onUpNextDragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function onUpNextDrop(e){
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if(upNextDragId){ reorderUpNext(upNextDragId,e.currentTarget,e.clientY); return; }
+  if(dragId){
+    const srcLane=['queue','waiting','done'].find(l=>(state.cards[l]||[]).find(c=>c.id===dragId));
+    if(srcLane==='queue') convertQueueToUpNext(dragId,e.currentTarget,e.clientY);
+  }
+}
+function getUpNextAfter(container,y){
+  const els=[...container.querySelectorAll('.mini-item:not(.dragging)')];
+  return els.reduce((closest,child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0&&offset>closest.offset){return{offset,element:child};}
+    return closest;
+  },{offset:-Infinity,element:null}).element;
+}
+function reorderUpNext(id,container,y){
+  const arr=state.thisweek||(state.thisweek=[]);
+  const from=arr.findIndex(it=>it.id===id);
+  if(from===-1)return;
+  const after=getUpNextAfter(container,y);
+  const [it]=arr.splice(from,1);
+  if(!after){ arr.push(it); }
+  else { const aid=after.id.replace('mini-thisweek-',''); let idx=arr.findIndex(x=>x.id===aid); if(idx===-1)idx=arr.length; arr.splice(idx,0,it); }
+  renderMini('thisweek','thisweek-list','\u25cf'); save();
+}
+function convertQueueToUpNext(cardId,container,y){
+  const qi=state.cards.queue.findIndex(c=>c.id===cardId);
+  if(qi===-1)return;
+  if(state.focusId===cardId) state.focusId=null;
+  const [card]=state.cards.queue.splice(qi,1);
+  if(!state.thisweek)state.thisweek=[];
+  const item={id:uid(),text:card.title};
+  const after=getUpNextAfter(container,y);
+  if(!after){ state.thisweek.push(item); }
+  else { const aid=after.id.replace('mini-thisweek-',''); let i=state.thisweek.findIndex(x=>x.id===aid); if(i===-1)i=state.thisweek.length; state.thisweek.splice(i,0,item); }
+  renderLane('queue'); renderMini('thisweek','thisweek-list','\u25cf'); renderFocus(); updateCounts(); save();
+  toast('Moved to Up Next');
+}
+function convertUpNextToQueue(itemId,container,y){
+  if(!state.thisweek)state.thisweek=[];
+  const ui=state.thisweek.findIndex(it=>it.id===itemId);
+  if(ui===-1)return;
+  const [item]=state.thisweek.splice(ui,1);
+  const card={id:uid(),title:(item.text||'').trim()||'Untitled',notes:'',addedAt:now(),addedIso:new Date().toISOString()};
+  const after=getDragAfterElement(container,y);
+  if(!after){ state.cards.queue.push(card); }
+  else { const aid=after.id.replace('card-',''); let i=state.cards.queue.findIndex(c=>c.id===aid); if(i===-1)i=state.cards.queue.length; state.cards.queue.splice(i,0,card); }
+  renderLane('queue'); renderMini('thisweek','thisweek-list','\u25cf'); updateCounts(); save();
+  toast('Moved to Queue');
+}
+
+function moveCard(id, src, target) {
+  if(src===target)return;
+  const idx = state.cards[src].findIndex(c=>c.id===id);
+  if(idx===-1)return;
+  if(src==='queue' && state.focusId===id && target!=='queue') state.focusId=null;
+  const [card] = state.cards[src].splice(idx,1);
+  if(target==='done') card.doneAt=now();
+  state.cards[target].push(card);
+  renderLane(src); renderLane(target); renderFocus(); updateCounts(); save();
+}
+function completeCard(id){
+  const card=state.cards.queue.find(c=>c.id===id);
+  if(!card)return;
+  if(state.focusId===id) state.focusId=null;
+  card.doneAt=now();
+  state.cards.queue=state.cards.queue.filter(c=>c.id!==id);
+  state.cards.done.unshift(card);
+  renderLane('queue'); renderLane('done'); renderFocus(); updateCounts(); save();
+}
+function restoreCard(id){
+  const card=state.cards.done.find(c=>c.id===id);
+  if(!card)return;
+  delete card.doneAt;
+  state.cards.done=state.cards.done.filter(c=>c.id!==id);
+  state.cards.queue.unshift(card);
+  renderLane('done'); renderLane('queue'); updateCounts(); save();
+}
+function moveToNow(id,lane){
+  toggleFocus(id);
+}
+function quickAdd(e){
+  if(e.key!=='Enter')return;
+  const title=e.target.value.trim();
+  if(!title)return;
+  const card={id:uid(),title,notes:'',addedAt:now(),addedIso:new Date().toISOString()};
+  state.cards.queue.unshift(card);
+  renderLane('queue'); updateCounts(); save();
+  e.target.value='';
+}
+function quickCapture(e){
+  if(e.key!=='Enter')return;
+  const raw=e.target.value.trim();
+  if(!raw)return;
+  const m=raw.match(/\b(RITM|INC)\s*0*\d+\b/i);
+  if(m){
+    const num=m[0].replace(/\s+/g,'').toUpperCase();
+    const rest=raw.replace(m[0],'').trim();
+    const make=confirm(`Looks like a ticket (${num}).\n\nOK  →  Create Active Ticket\nCancel  →  Add to Queue`);
+    if(make){
+      if((state.tickets||[]).length>=10){ toast('Max 10 active tickets'); }
+      else {
+        e.target.value='';
+        openTicketModal();
+        document.getElementById('t-number').value=num;
+        document.getElementById('t-move').value=rest;
+        setTimeout(()=>document.getElementById('t-user').focus(),120);
+        return;
+      }
+    }
+  }
+  const card={id:uid(),title:raw,notes:'',addedAt:now(),addedIso:new Date().toISOString()};
+  state.cards.queue.unshift(card);
+  renderLane('queue'); updateCounts(); save();
+  e.target.value=''; toast('Added to Queue');
+}
+function quickPending(id,lane){
+  const card=state.cards[lane].find(c=>c.id===id);
+  if(!card)return;
+  const w=prompt('Pending on whom/what?',card.waiton||'');
+  if(w===null)return;
+  if(!w.trim()){toast('Pending On is required');return;}
+  const np=prompt('Next push — when do you check again?',card.nextPush||'');
+  if(np===null)return;
+  if(!np.trim()){toast('Next Push is required');return;}
+  card.waiton=w.trim(); card.nextPush=np.trim(); card.addedIso=new Date().toISOString();
+  moveCard(id,lane,'waiting'); toast('Moved to Pending');
+}
+function deleteCard(id,lane){ if(state.focusId===id)state.focusId=null; state.cards[lane]=state.cards[lane].filter(c=>c.id!==id); renderLane(lane); renderFocus(); updateCounts(); save(); }
+function clearDone(){ if(!state.cards.done.length){toast('Nothing to archive');return;} const n=state.cards.done.length; state.cards.done=[]; renderLane('done'); updateCounts(); save(); toast(`Archived ${n} item${n>1?'s':''}`); }
+function updateCounts() {
+  ['queue','waiting'].forEach(l=>{
+    document.getElementById(l+'-count').textContent=(state.cards[l]||[]).length||'';
+  });
+  const dn=(state.cards.done||[]).length;
+  document.getElementById('done-count').textContent=dn?dn+' Completed':'';
+  document.getElementById('done-today-count').textContent=dn;
+  updateDayProgress();
+}
+
+function openModal(lane) {
+  addLane=lane;
+  ['f-title','f-waiton','f-nextpush','f-notes'].forEach(id=>{ const el=document.getElementById(id); if(el)el.value=''; });
+  document.getElementById('waiton-row').style.display=lane==='waiting'?'':'none';
+  document.getElementById('nextpush-row').style.display=lane==='waiting'?'':'none';
+  document.getElementById('modal-title').textContent=lane==='waiting'?'Add to Pending':'Add to Queue';
+  document.getElementById('add-overlay').classList.add('open');
+  setTimeout(()=>document.getElementById('f-title').focus(),80);
+}
+function closeAdd(){ document.getElementById('add-overlay').classList.remove('open'); }
+function closeAddOnBg(e){ if(e.target===document.getElementById('add-overlay'))closeAdd(); }
+function saveAdd() {
+  const title=document.getElementById('f-title').value.trim();
+  if(!title){document.getElementById('f-title').focus();return;}
+  if(addLane==='waiting'&&!document.getElementById('f-waiton').value.trim()){
+    document.getElementById('f-waiton').focus();toast('Pending On is required');return;
+  }
+  if(addLane==='waiting'&&!document.getElementById('f-nextpush').value.trim()){
+    document.getElementById('f-nextpush').focus();toast('Next Push is required');return;
+  }
+  const card={id:uid(),title,waiton:document.getElementById('f-waiton').value.trim(),nextPush:document.getElementById('f-nextpush').value.trim(),notes:document.getElementById('f-notes').value.trim(),addedAt:now(),addedIso:new Date().toISOString()};
+  state.cards[addLane].unshift(card);
+  renderLane(addLane); updateCounts(); save(); closeAdd();
+}
+
+function openEdit(id,lane) {
+  const card=state.cards[lane].find(c=>c.id===id);
+  if(!card)return;
+  editId=id;
+  document.getElementById('e-title').value=card.title;
+  document.getElementById('e-waiton').value=card.waiton||'';
+  document.getElementById('e-nextpush').value=card.nextPush||'';
+  document.getElementById('e-notes').value=card.notes||'';
+  document.getElementById('e-lane').value=lane;
+  const _epe=document.getElementById('e-pri'); if(_epe) _epe.value=String(card.pri||0);
+  document.getElementById('e-waiton-row').style.display=lane==='waiting'?'':'none';
+  document.getElementById('e-nextpush-row').style.display=lane==='waiting'?'':'none';
+  document.getElementById('edit-overlay').classList.add('open');
+  setTimeout(()=>document.getElementById('e-title').focus(),80);
+}
+document.addEventListener('change',e=>{ if(e.target.id==='e-lane'){const w=e.target.value==='waiting'?'':'none';document.getElementById('e-waiton-row').style.display=w;document.getElementById('e-nextpush-row').style.display=w;} });
+function closeEdit(){ document.getElementById('edit-overlay').classList.remove('open'); editId=null; }
+function closeEditOnBg(e){ if(e.target===document.getElementById('edit-overlay'))closeEdit(); }
+function saveEdit() {
+  if(!editId)return;
+  const newLane=document.getElementById('e-lane').value;
+  let srcLane=null;
+  for(const lane of ['queue','waiting','done']){ if(state.cards[lane].find(c=>c.id===editId)){srcLane=lane;break;} }
+  if(!srcLane)return;
+  if(newLane==='waiting'&&!document.getElementById('e-waiton').value.trim()){
+    document.getElementById('e-waiton').focus();toast('Pending On is required');return;
+  }
+  if(newLane==='waiting'&&!document.getElementById('e-nextpush').value.trim()){
+    document.getElementById('e-nextpush').focus();toast('Next Push is required');return;
+  }
+  const card=state.cards[srcLane].find(c=>c.id===editId);
+  if(!card){ closeEdit(); return; }
+  card.title=document.getElementById('e-title').value.trim()||card.title;
+  card.waiton=document.getElementById('e-waiton').value.trim();
+  card.nextPush=document.getElementById('e-nextpush').value.trim();
+  card.notes=document.getElementById('e-notes').value.trim();
+  const _pe=document.getElementById('e-pri');
+  card.pri=_pe?(parseInt(_pe.value,10)||0):(card.pri||0);
+  if(newLane!==srcLane) moveCard(editId,srcLane,newLane); else renderLane(srcLane);
+  save(); closeEdit();
+}
+
+// ---- FOLLOW-UPS removed — Pending + Next Push covers this ----
+
+function renderMini(key,containerId,marker) {
+  const el=document.getElementById(containerId);
+  const items=state[key]||[];
+  if(!items.length){
+    const msg = key==='thisweek' ? 'No items selected for today' : 'No items';
+    el.innerHTML=`<div class="mini-empty">${msg}</div>`;return;
+  }
+  el.innerHTML=items.map((item,i)=>{
+    const iid=item.id||(item.id=uid());
+    return `<div class="mini-item" id="mini-${key}-${iid}">
+      <span class="mini-grip" draggable="true" title="Drag to reorder, or into the Queue"
+        ondragstart="onUpNextDragStart(event,'${iid}')" ondragend="onUpNextDragEnd()">\u283f</span>
+      <div class="mini-text" contenteditable="true" spellcheck="false"
+        onblur="updateMini('${key}',${i},this.textContent)"
+        onkeydown="miniKeydown(event,'${key}',${i})">${escHtml(item.text)}</div>
+      <span class="mini-del" onclick="delMini('${key}',${i},'${containerId}','${marker}')">\u2715</span>
+    </div>`;
+  }).join('');
+}
+const STATUS_GROUP = {'Pending':'g-action','In Progress':'g-action','Waiting User':'g-wait','Waiting Vendor':'g-wait','Ready To Close':'g-close','Closed':'g-close'};
+function statusClass(s){ return STATUS_GROUP[s] || 'g-action'; }
+function normStatus(s){
+  if(STATUS_GROUP[s])return s;
+  if(s==='Open')return 'Pending';
+  if(s==='Resolved')return 'Ready To Close';
+  return 'Pending';
+}
+function renderTickets(){
+  const el=document.getElementById('tickets-list');
+  const items=state.tickets||[];
+  const cEl=document.getElementById('tickets-count');
+  if(cEl) cEl.textContent = items.length ? '('+items.length+')' : '';
+  if(!items.length){ el.innerHTML=`<div class="mini-empty">No active tickets</div>`; return; }
+  el.innerHTML=items.map(t=>ticketHTML(t)).join('');
+}
+function ticketHTML(t){
+  const sc=statusClass(t.status);
+  const num=escHtml(t.number||'—');
+  const numEl = t.url
+    ? `<a class="ticket-num" href="${escHtml(t.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Open ticket">${num}<span class="ticket-ext">↗</span></a>`
+    : `<span class="ticket-num" onclick="toggleTicket('${t.id}')">${num}</span>`;
+  return `<div class="ticket-card${t.collapsed?' collapsed':''}" id="tk-${t.id}" draggable="true"
+    ondragstart="onTicketDragStart(event,'${t.id}')" ondragend="onTicketDragEnd()">
+    <div class="ticket-top">
+      <span class="ticket-caret" onclick="toggleTicket('${t.id}')">▼</span>
+      ${numEl}
+      ${t.user?`<span class="ticket-user-inline">${escHtml(t.user)}</span>`:''}
+      <span class="ticket-status ${sc}">${escHtml(t.status||'Pending')}</span>
+    </div>
+    <div class="ticket-body">
+      ${t.nextMove?`<div class="ticket-move"><span class="ticket-move-label">Next Move</span><span class="ticket-move-val">${escHtml(t.nextMove)}</span></div>`:''}
+      <div class="ticket-acts">
+        <button class="card-btn" onclick="openTicketModal('${t.id}')">Edit</button>
+        <button class="card-btn del" onclick="delTicketById('${t.id}')">✕</button>
+      </div>
+    </div>
+  </div>`;
+}
+function toggleTicket(id){ const t=(state.tickets||[]).find(x=>x.id===id); if(!t)return; t.collapsed=!t.collapsed; renderTickets(); save(); }
+function delTicketById(id){ state.tickets=(state.tickets||[]).filter(x=>x.id!==id); renderTickets(); save(); }
+
+// ---- TICKET MODAL ----
+let ticketEditId=null;
+function openTicketModal(id){
+  if(!id && (state.tickets||[]).length>=10){ toast('Max 10 active tickets'); return; }
+  ticketEditId=id||null;
+  const t=id ? (state.tickets||[]).find(x=>x.id===id) : null;
+  document.getElementById('ticket-modal-title').textContent = t ? 'Edit Ticket' : 'Add Ticket';
+  document.getElementById('t-number').value = t?(t.number||''):'';
+  document.getElementById('t-user').value = t?(t.user||''):'';
+  document.getElementById('t-move').value = t?(t.nextMove||''):'';
+  document.getElementById('t-url').value = t?(t.url||''):'';
+  document.getElementById('t-status').value = t?(t.status||'Pending'):'Pending';
+  document.getElementById('ticket-overlay').classList.add('open');
+  setTimeout(()=>document.getElementById('t-number').focus(),80);
+}
+function closeTicketModal(){ document.getElementById('ticket-overlay').classList.remove('open'); ticketEditId=null; }
+function closeTicketOnBg(e){ if(e.target===document.getElementById('ticket-overlay'))closeTicketModal(); }
+function saveTicket(){
+  const number=document.getElementById('t-number').value.trim();
+  if(!number){ document.getElementById('t-number').focus(); toast('Ticket number required'); return; }
+  const data={
+    number,
+    user:document.getElementById('t-user').value.trim(),
+    nextMove:document.getElementById('t-move').value.trim(),
+    url:document.getElementById('t-url').value.trim(),
+    status:document.getElementById('t-status').value
+  };
+  if(!state.tickets)state.tickets=[];
+  if(ticketEditId){ const t=state.tickets.find(x=>x.id===ticketEditId); if(t)Object.assign(t,data); }
+  else { state.tickets.push({id:uid(),collapsed:true,...data}); }
+  renderTickets(); save(); closeTicketModal();
+}
+
+// ---- TICKET DRAG / REORDER ----
+let ticketDragId=null;
+function onTicketDragStart(e,id){ ticketDragId=id; e.stopPropagation(); setTimeout(()=>{const el=document.getElementById('tk-'+id);if(el)el.classList.add('dragging');},0); }
+function onTicketDragEnd(){ if(ticketDragId){const el=document.getElementById('tk-'+ticketDragId);if(el)el.classList.remove('dragging');} ticketDragId=null; }
+function onTicketDragOver(e){ if(!ticketDragId)return; e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onTicketDragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function onTicketDrop(e){
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if(!ticketDragId)return;
+  const arr=state.tickets;
+  const from=arr.findIndex(t=>t.id===ticketDragId);
+  if(from===-1)return;
+  const after=getTicketAfterElement(e.currentTarget,e.clientY);
+  const [card]=arr.splice(from,1);
+  if(!after){ arr.push(card); }
+  else { const afterId=after.id.replace('tk-',''); let idx=arr.findIndex(t=>t.id===afterId); if(idx===-1)idx=arr.length; arr.splice(idx,0,card); }
+  renderTickets(); save();
+}
+function getTicketAfterElement(container,y){
+  const els=[...container.querySelectorAll('.ticket-card:not(.dragging)')];
+  return els.reduce((closest,child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0&&offset>closest.offset){return{offset,element:child};}
+    return closest;
+  },{offset:-Infinity,element:null}).element;
+}
+function addMini(key) {
+  if(key==='tickets' && (state.tickets||[]).length>=5){ toast('Max 5 tickets'); return; }
+  if(!state[key])state[key]=[];
+  state[key].push({id:uid(),text:key==='tickets'?'RITM | Owner | Action':'New item'});
+  if(key==='tickets'){ renderTickets(); save();
+    setTimeout(()=>{ const els=document.querySelectorAll('#tickets-list .mini-text'); if(els.length){const last=els[els.length-1];last.focus();selectAll(last);} },40);
+    return;
+  }
+  const map={thisweek:['thisweek-list','●']};
+  renderMini(key,map[key][0],map[key][1]); save();
+  setTimeout(()=>{ const els=document.querySelectorAll(`#${map[key][0]} .mini-text`); if(els.length){const last=els[els.length-1];last.focus();selectAll(last);} },40);
+}
+function updateMini(key,i,txt){ if(!state[key])return; state[key][i].text=txt.trim()||'Item'; save(); }
+function delMini(key,i,containerId,marker){ if(!state[key])return; state[key].splice(i,1); renderMini(key,containerId,marker); save(); }
+
+function miniKeydown(e,key,i){
+  if(e.key!=='Enter')return;
+  e.preventDefault();
+  const txt=e.target.textContent.trim();
+  if(txt)state[key][i].text=txt;
+  if(key==='tickets'){
+    if((state.tickets||[]).length>=5){ e.target.blur(); return; }
+    state.tickets.splice(i+1,0,{id:uid(),text:''});
+    renderTickets(); save();
+    setTimeout(()=>{ const els=document.querySelectorAll('#tickets-list .mini-text'); if(els[i+1])els[i+1].focus(); },40);
+    return;
+  }
+  state[key].splice(i+1,0,{id:uid(),text:''});
+  const map={thisweek:['thisweek-list','\u25cf']};
+  renderMini(key,map[key][0],map[key][1]); save();
+  setTimeout(()=>{ const els=document.querySelectorAll('#'+map[key][0]+' .mini-text'); if(els[i+1])els[i+1].focus(); },40);
+}
+function outcomeKeydown(e,i){
+  if(e.key!=='Enter')return;
+  e.preventDefault();
+  if((state.outcomes||[]).length<2)addOutcome();
+}
+function resetSession() {
+  if(!confirm('Start Clean Session?\n\nThis clears all execution state for a fresh shift — Commitments (T1/T2), Current Focus, Queue, Pending, Up Next, Done Today and Follow-ups all empty out.\n\nActive Tickets, Work Notes and Recent Days are kept. This cannot be undone.'))return;
+  // Clear execution state only — system structure is preserved.
+  state.outcomes=[];                     // T1 / T2 commitments
+  state.cards={queue:[],waiting:[],done:[]}; // Queue / Pending / Done
+  state.thisweek=[];                     // Up Next
+  state.followups=[];                    // Follow-ups
+  state.focusId=null;                    // Current Focus
+  state.now='';
+  renderAll();
+  save();
+  toast('Clean session started');
+}
+function newDay() {
+  if(!confirm('Start a new day?\n\nToday is archived to Recent Days. Done Today clears. Queue & Pending carry over (flagged Carryover). Commitments reset.'))return;
+  archiveDay();
+  state.lastDay=new Date().toISOString().slice(0,10);
+  ['queue','waiting'].forEach(l=>(state.cards[l]||[]).forEach(c=>{c.carry=true;}));
+  state.cards.done=[];
+  state.now='';
+  state.focusId=null;
+  state.outcomes=[];
+  document.getElementById('date-display').textContent=fmtDate(new Date());
+  renderAll(); save(); toast('New day. Yesterday archived to Recent Days.');
+}
+
+// ---- RECENT DAYS (operational memory) ----
+function archiveDay(){
+  const commitments=(state.outcomes||[]).map(o=>(o.text||'').trim()).filter(Boolean);
+  const completed=(state.cards.done||[]).map(c=>(c.title||'').trim()).filter(Boolean);
+  const carryover=[...(state.cards.queue||[]),...(state.cards.waiting||[])].map(c=>(c.title||'').trim()).filter(Boolean);
+  if(!commitments.length && !completed.length && !carryover.length) return; // nothing worth remembering
+  if(!state.recentDays) state.recentDays=[];
+  const today=new Date().toISOString().slice(0,10);
+  const rec={date:today,commitments,completed,carryover};
+  state.recentDays=state.recentDays.filter(d=>d.date!==today); // one record per day
+  state.recentDays.unshift(rec);
+  if(state.recentDays.length>7) state.recentDays=state.recentDays.slice(0,7);
+}
+function relDayLabel(iso){
+  try{
+    const d=new Date(iso+'T00:00:00');
+    const today=new Date(); today.setHours(0,0,0,0);
+    const days=Math.round((today-d)/86400000);
+    if(days===0) return 'Today';
+    if(days===1) return 'Yesterday';
+    if(days>1 && days<7) return d.toLocaleDateString('en-US',{weekday:'long'});
+    return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  }catch(e){ return iso||''; }
+}
+function toggleRecent(){ const p=document.getElementById('recent-panel'); if(p) p.classList.toggle('collapsed'); }
+function toggleRecentDay(i){ const el=document.getElementById('rday-'+i); if(el) el.classList.toggle('open'); }
+function renderRecentDays(){
+  const body=document.getElementById('recent-body');
+  const hint=document.getElementById('recent-hint');
+  const days=state.recentDays||[];
+  if(hint) hint.textContent = days.length ? days.length+(days.length===1?' day':' days')+' remembered' : 'Nothing archived yet';
+  if(!body) return;
+  if(!days.length){ body.innerHTML='<div class="recent-empty">Days you close with New Day ↺ are remembered here — commitments, completed work, and carryover.</div>'; return; }
+  const colHTML=(label,arr,cls)=>`<div class="recent-col ${cls}"><div class="recent-col-label">${label}</div>${arr.length?`<ul>${arr.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul>`:'<div class="recent-col-empty">None</div>'}</div>`;
+  body.innerHTML=days.map((d,i)=>{
+    const comm=(d.commitments||[]).filter(Boolean);
+    const done=(d.completed||[]).filter(Boolean);
+    const carry=(d.carryover||[]).filter(Boolean);
+    const summary = comm.length ? comm.join('  ·  ') : (done.length ? done.join('  ·  ') : 'No commitments logged');
+    return `<div class="recent-day${i===0?' open':''}" id="rday-${i}">
+      <div class="recent-day-head" onclick="toggleRecentDay(${i})">
+        <span class="recent-day-caret">▼</span>
+        <span class="recent-day-label">${escHtml(relDayLabel(d.date))}</span>
+        <span class="recent-day-meta">${escHtml(summary)}</span>
+      </div>
+      <div class="recent-day-body">
+        ${colHTML('Commitments',comm,'comm')}
+        ${colHTML('Completed',done,'done')}
+        ${colHTML('Carryover',carry,'carry')}
+      </div>
+    </div>`;
+  }).join('');
+}
+function checkNewDay() {
+  const today=new Date().toISOString().slice(0,10);
+  if(state.lastDay&&state.lastDay!==today) toast('New day — hit New Day ↺ when ready');
+}
+function selectAll(el){ const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r); }
+function toast(msg){ const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600); }
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeAdd();closeEdit();closeTicketModal();}
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){
+    if(document.getElementById('add-overlay').classList.contains('open'))saveAdd();
+    else if(document.getElementById('edit-overlay').classList.contains('open'))saveEdit();
+    else if(document.getElementById('ticket-overlay').classList.contains('open'))saveTicket();
+  }
+  if(e.key==='n'&&!e.ctrlKey&&!e.metaKey&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'&&!document.activeElement.isContentEditable) openModal('queue');
+});
+
+init();
+</script>
+
+<!-- vNext-2 LAYOUT ENGINE: resize · persist · collapse · maximize · save-status -->
+<script>
+(function(){
+  const MIN_LANE = 250, MIN_MINI = 300, RAIL = 44, HANDLE = 12;
+  const BOARD = ['queue','waiting','done','notes'];
+  const BOTTOM = ['tickets'];
+  const ALL = ['queue','waiting','done','notes','upnext','tickets'];
+  const DEF_BOARD = {queue:1.4, waiting:1, done:0.95, notes:1.15};
+  const DEF_BOTTOM = {upnext:35, tickets:65};
+  const ELID = {queue:'lane-queue', waiting:'lane-waiting', done:'lane-done', notes:'lane-notes', upnext:'panel-upnext', tickets:'panel-tickets'};
+  let maxPanel = null; // transient (per-session) maximize
+
+  function el(id){ return document.getElementById(ELID[id]); }
+  function L(){ if(!state.boardLayout) state.boardLayout={...DEF_BOARD}; BOARD.forEach(p=>{ if(typeof state.boardLayout[p]!=='number') state.boardLayout[p]=DEF_BOARD[p]; }); return state.boardLayout; }
+  function Bt(){ if(!state.bottomLayout) state.bottomLayout={...DEF_BOTTOM}; BOTTOM.forEach(p=>{ if(typeof state.bottomLayout[p]!=='number') state.bottomLayout[p]=DEF_BOTTOM[p]; }); return state.bottomLayout; }
+  function C(){ if(!state.collapsed) state.collapsed={}; return state.collapsed; }
+
+  function availOf(container, count){
+    const cs = getComputedStyle(container);
+    const padX = parseFloat(cs.paddingLeft||0) + parseFloat(cs.paddingRight||0);
+    return container.clientWidth - padX - (count-1)*HANDLE;
+  }
+
+  function applyBoard(){
+    const wrap = document.querySelector('.board-wrap');
+    const board = document.querySelector('.board');
+    if(!wrap || !board) return;
+    const w = L(), c = C();
+    const expanded = BOARD.filter(p=>!c[p]);
+    const nCollapsed = BOARD.length - expanded.length;
+    let avail = availOf(wrap, BOARD.length) - nCollapsed*RAIL;
+    if(avail < 0) avail = 0;
+    const bases = {};
+    if(maxPanel && BOARD.includes(maxPanel) && !c[maxPanel]){
+      const others = expanded.filter(p=>p!==maxPanel);
+      const big = Math.max(MIN_LANE, avail - others.length*MIN_LANE);
+      expanded.forEach(p=>{ bases[p] = (p===maxPanel)? big : MIN_LANE; });
+    } else if(expanded.length){
+      const sum = expanded.reduce((s,p)=>s+w[p],0) || 1;
+      expanded.forEach(p=>{ bases[p] = Math.max(MIN_LANE, w[p]/sum*avail); });
+    }
+    BOARD.forEach(p=>{ const e=el(p); if(!e) return; e.style.flexBasis = c[p] ? RAIL+'px' : Math.round(bases[p])+'px'; });
+  }
+
+  function applyBottom(){
+    const row = document.querySelector('.bottom-row');
+    if(!row) return;
+    const w = Bt(), c = C();
+    const expanded = BOTTOM.filter(p=>!c[p]);
+    const nCollapsed = BOTTOM.length - expanded.length;
+    let avail = availOf(row, BOTTOM.length) - nCollapsed*RAIL;
+    if(avail < 0) avail = 0;
+    const bases = {};
+    if(maxPanel && BOTTOM.includes(maxPanel) && !c[maxPanel]){
+      const others = expanded.filter(p=>p!==maxPanel);
+      bases[maxPanel] = Math.max(MIN_MINI, avail - others.length*MIN_MINI);
+      others.forEach(p=> bases[p]=MIN_MINI);
+    } else if(expanded.length === 1){
+      bases[expanded[0]] = avail;
+    } else if(expanded.length){
+      const sum = expanded.reduce((s,p)=>s+w[p],0) || 1;
+      expanded.forEach(p=>{ bases[p] = Math.max(MIN_MINI, w[p]/sum*avail); });
+    }
+    BOTTOM.forEach(p=>{ const e=el(p); if(!e) return; e.style.flexBasis = c[p] ? RAIL+'px' : Math.round(bases[p])+'px'; });
+  }
+
+  function applyAll(){ applyBoard(); applyBottom(); }
+
+  // ---- Drag-to-resize (pointer events) ----
+  function bindHandles(){
+    document.querySelectorAll('.rz-handle').forEach(h=>{
+      h.addEventListener('pointerdown', onHandleDown);
+    });
+  }
+  function onHandleDown(e){
+    const h = e.currentTarget;
+    if(h.classList.contains('rz-disabled')) return;
+    const leftId = h.dataset.left, rightId = h.dataset.right;
+    const kind = BOARD.includes(leftId) ? 'board' : 'bottom';
+    const MIN = kind==='board' ? MIN_LANE : MIN_MINI;
+    const lEl = el(leftId), rEl = el(rightId);
+    if(!lEl || !rEl) return;
+    const startX = e.clientX;
+    const lw = lEl.getBoundingClientRect().width;
+    const rw = rEl.getBoundingClientRect().width;
+    const total = lw + rw;
+    const minClamp = Math.min(MIN, Math.max(40, total/2 - 1));
+    document.body.classList.add('rz-dragging');
+    h.classList.add('rz-active');
+    try{ h.setPointerCapture(e.pointerId); }catch(_){}
+    function move(ev){
+      let nl = lw + (ev.clientX - startX);
+      nl = Math.max(minClamp, Math.min(total - minClamp, nl));
+      lEl.style.flexBasis = Math.round(nl)+'px';
+      rEl.style.flexBasis = Math.round(total - nl)+'px';
+    }
+    function up(){
+      h.removeEventListener('pointermove', move);
+      h.removeEventListener('pointerup', up);
+      h.removeEventListener('pointercancel', up);
+      document.body.classList.remove('rz-dragging');
+      h.classList.remove('rz-active');
+      // persist resulting pixel widths as weights
+      const store = kind==='board' ? L() : Bt();
+      const list = kind==='board' ? BOARD : BOTTOM;
+      list.filter(p=>!C()[p]).forEach(p=>{ store[p] = el(p).getBoundingClientRect().width; });
+      save();
+    }
+    h.addEventListener('pointermove', move);
+    h.addEventListener('pointerup', up);
+    h.addEventListener('pointercancel', up);
+    e.preventDefault();
+  }
+  function refreshHandles(){
+    document.querySelectorAll('.rz-handle').forEach(h=>{
+      const l = h.dataset.left, r = h.dataset.right;
+      const disabled = !!maxPanel || C()[l] || C()[r];
+      h.classList.toggle('rz-disabled', !!disabled);
+    });
+  }
+
+  // ---- Collapse ----
+  window.toggleCollapse = function(id){
+    const c = C();
+    c[id] = !c[id];
+    const e = el(id);
+    if(e) e.classList.toggle('collapsed', !!c[id]);
+    if(c[id] && maxPanel === id){ maxPanel = null; syncMaxButtons(); }
+    if(c[id] && e) e.classList.remove('is-max');
+    applyAll(); refreshHandles(); updateRailCounts(); save();
+  };
+
+  // ---- Maximize / Expand ----
+  window.toggleMaximize = function(id){
+    if(C()[id]) return; // can't maximize a collapsed panel
+    maxPanel = (maxPanel === id) ? null : id;
+    [...BOARD, ...BOTTOM].forEach(p=>{ const e=el(p); if(e) e.classList.toggle('is-max', maxPanel===p); });
+    syncMaxButtons();
+    applyAll(); refreshHandles();
+  };
+  function syncMaxButtons(){
+    document.querySelectorAll('.panel-btn[data-exp]').forEach(b=>{
+      b.classList.toggle('is-max', b.dataset.exp === maxPanel);
+      b.title = (b.dataset.exp === maxPanel) ? 'Restore layout' : 'Expand panel';
+    });
+  }
+
+  // ---- Rail counts ----
+  function lineCount(s){ return (s||'').split('\n').map(x=>x.replace(/^•\s*/,'').trim()).filter(Boolean).length; }
+  function railCount(id){
+    if(id==='queue') return (state.cards.queue||[]).length;
+    if(id==='waiting') return (state.cards.waiting||[]).length;
+    if(id==='done') return (state.cards.done||[]).length;
+    if(id==='notes') return lineCount(state.workNotes);
+    if(id==='upnext') return (state.thisweek||[]).length;
+    if(id==='tickets') return (state.tickets||[]).length;
+    return 0;
+  }
+  function updateRailCounts(){
+    ALL.forEach(id=>{
+      const c = document.getElementById('rail-count-'+id);
+      if(c){ const n = railCount(id); c.textContent = n ? '· '+n : ''; }
+    });
+  }
+  window.__updateRailCounts = updateRailCounts;
+
+  // ---- Save status (replaces save dot) ----
+  let saveTimer = null;
+  function setStatus(s){
+    const box = document.getElementById('save-status');
+    if(!box) return;
+    box.classList.remove('saving','saved','failed');
+    box.classList.add(s);
+    const t = document.getElementById('save-status-text');
+    if(t) t.textContent = s==='saving' ? 'Saving…' : s==='failed' ? 'Save Failed' : 'Saved';
+  }
+  window.save = function(){
+    setStatus('saving');
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(()=>{
+      try{ localStorage.setItem('ops_ngc_v1', JSON.stringify(state)); setStatus('saved'); }
+      catch(e){ setStatus('failed'); }
+    }, 500);
+  };
+
+  // keep rail counts fresh after the app re-renders counts
+  const _updateCounts = window.updateCounts;
+  window.updateCounts = function(){ if(_updateCounts) _updateCounts(); updateRailCounts(); };
+
+  // ---- Boot ----
+  function restore(){
+    const c = C();
+    ALL.forEach(p=>{ const e=el(p); if(e) e.classList.toggle('collapsed', !!c[p]); });
+    bindHandles();
+    refreshHandles();
+    applyAll();
+    updateRailCounts();
+    let raf = null;
+    window.addEventListener('resize', ()=>{ if(raf) cancelAnimationFrame(raf); raf = requestAnimationFrame(applyAll); });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restore);
+  else restore();
+})();
+</script>
+
+<!-- TWEAKS PANEL (mounts a small React panel over the vanilla app; drives accent CSS vars) -->
+<div id="tweaks-root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": [
+    "#A7A7F3",
+    "#E3AADD",
+    "#D7A6A2",
+    "#C3C7F4"
+  ],
+  "accent": "#C8A8E9",
+  "background": "#FFFFFF",
+  "typeface": "Hanken Grotesk"
+}/*EDITMODE-END*/;
+
+const THEMES = {
+  pastel:  ["#A7A7F3", "#E3AADD", "#D7A6A2", "#C3C7F4"],
+  vibrant: ["#F5912E", "#F26B4E", "#F6B89B", "#F4C638"],
+  sage:    ["#7E9B6F", "#D2805C", "#C49BB8", "#9DB5A6"],
+  slate:   ["#5B79AD", "#E0975A", "#C58FA6", "#8FA6C8"]
+};
+const FONT_STACK = {
+  "Hanken Grotesk": "'Hanken Grotesk',system-ui,-apple-system,sans-serif",
+  "Quicksand": "'Quicksand',system-ui,sans-serif",
+  "System": "system-ui,-apple-system,'Segoe UI',sans-serif"
+};
+
+function TweaksApp() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const r = document.documentElement.style;
+    const [comm, moving, waiting, done] = t.theme;
+    r.setProperty('--lav', comm);   r.setProperty('--c-lav', comm);
+    r.setProperty('--coral', moving); r.setProperty('--c-pink', moving);
+    r.setProperty('--pink', waiting); r.setProperty('--c-rose', waiting);
+    r.setProperty('--peri', done);
+    r.setProperty('--blue', done);
+    r.setProperty('--blue-lt', done);
+    r.setProperty('--c-ice', done);
+    r.setProperty('--chart', t.accent);
+    r.setProperty('--olive', t.accent);
+    r.setProperty('--cream', t.background);
+    r.setProperty('--font', FONT_STACK[t.typeface] || FONT_STACK['Hanken Grotesk']);
+  }, [t]);
+
+  return (
+    <TweaksPanel>
+      <TweakSection label="Color theme" />
+      <TweakColor label="Lane accents" value={t.theme}
+        options={[THEMES.pastel, THEMES.vibrant, THEMES.sage, THEMES.slate]}
+        onChange={(v) => setTweak('theme', v)} />
+      <TweakColor label="Accent (counts · checks)" value={t.accent}
+        options={['#C3C7F4', '#C8A8E9', '#E3AADD', '#F6C8BA', '#A7A7F3']}
+        onChange={(v) => setTweak('accent', v)} />
+      <TweakColor label="Background" value={t.background}
+        options={['#F6F4FB', '#F4E7FB', '#FFFFFF', '#F6F3EE']}
+        onChange={(v) => setTweak('background', v)} />
+      <TweakSection label="Typeface" />
+      <TweakRadio label="Font" value={t.typeface}
+        options={['Hanken Grotesk', 'Quicksand', 'System']}
+        onChange={(v) => setTweak('typeface', v)} />
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+</script>
+</body>
+</html>

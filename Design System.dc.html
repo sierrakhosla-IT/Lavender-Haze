@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  body{background:#B8B7F0}
+  ::selection{background:#C8A8E9;color:#fff}
+</style>
+</helmet>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="letter" margin="0.85in" hint-size="816px,1056px">
+
+  <!-- ============ COVER ============ -->
+  <div style="position:relative;margin:-0.85in -0.85in 0;height:9.6in;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;break-after:page;color:#20205C;">
+    <div style="position:absolute;inset:0;background-image:url('assets/cover-gradient.png');background-size:cover;background-position:48% 55%;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(230,230,255,.22) 0%,rgba(200,200,250,.04) 42%,rgba(90,88,200,.34) 100%);"></div>
+
+    <div style="position:relative;padding:0.95in 0.85in 0;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:#3A3A8B;">Executive&nbsp;Tower</div>
+      <div style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(45,45,112,.72);">Design System</div>
+    </div>
+
+    <div style="position:relative;padding:0 0.85in;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:rgba(45,45,112,.7);margin-bottom:22px;">The Visual Language</div>
+      <h1 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:82px;line-height:0.98;letter-spacing:-.03em;color:#232360;margin:0 0 26px;max-width:9.2in;">A material<br>for calm<br>attention.</h1>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:rgba(40,40,105,.86);max-width:5.7in;margin:0;">This is the technical translation of the Product Constitution into a concrete design language &mdash; type, color, glass, space, and motion. Where the Constitution says <em>why</em>, this document says <em>exactly how</em>. Every token is traceable to a principle.</p>
+    </div>
+
+    <div style="position:relative;padding:0 0.85in 0.95in;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;">
+      <div style="display:flex;gap:0;align-items:stretch;background:rgba(255,255,255,.32);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.6);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(50,48,120,.22);">
+        <div style="padding:14px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:19px;color:#2E2E78;">Aa</div><div style="font-family:'Quicksand',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Type</div></div>
+        <div style="padding:14px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:19px;color:#2E2E78;">◐</div><div style="font-family:'Quicksand',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Color</div></div>
+        <div style="padding:14px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:19px;color:#2E2E78;">▤</div><div style="font-family:'Quicksand',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Glass</div></div>
+        <div style="padding:14px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:19px;color:#2E2E78;">⊞</div><div style="font-family:'Quicksand',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Grid</div></div>
+        <div style="padding:14px 20px;text-align:center;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:19px;color:#2E2E78;">≈</div><div style="font-family:'Quicksand',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Motion</div></div>
+      </div>
+      <div style="text-align:right;font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.7;color:rgba(40,40,105,.74);">
+        <div style="font-weight:700;color:#2E2E78;">Version 1.0</div>
+        <div>Visual constitution</div>
+        <div>Design Systems</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 01 FOUNDATIONS ============ -->
+  <section style="margin-top:8px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">01</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Foundations</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">The material follows the philosophy.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:18px;line-height:1.56;color:#454592;margin:0 0 22px;max-width:38em;">The Constitution defines a workspace that reduces cognitive load and guides attention toward one dominant object. The visual language exists to make that behavior physical. Light, depth, and space are not decoration here &mdash; they are the instruments by which the room stays calm and the Hero stays dominant.</p>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;line-height:1.72;color:#33336E;margin:0 0 26px;max-width:38em;">Three material decisions carry the entire system, and each answers a specific principle. Every token defined later is an implementation of one of these three ideas.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.18);border-radius:16px;padding:22px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5F5DCB;margin-bottom:10px;">Depth is hierarchy</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.58;color:#3C3C7A;margin:0;">Glass tiers translate the attention hierarchy into z-space. The nearer a surface floats, the more it matters. The Hero is closest.</p>
+      </div>
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.18);border-radius:16px;padding:22px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5F5DCB;margin-bottom:10px;">Light is calm</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.58;color:#3C3C7A;margin:0;">A single periwinkle atmosphere, soft shadows, and low contrast keep arousal low. No pure black, no saturated alerts.</p>
+      </div>
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.18);border-radius:16px;padding:22px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5F5DCB;margin-bottom:10px;">Space is structure</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.58;color:#3C3C7A;margin:0;">One spatial scale and one grid hold the architecture steady, so the room reads the same on the busiest and quietest day.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:16px 22px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.66;color:#33336E;margin:0;"><strong>Reading rule.</strong> Every token in this document lists the Constitution principle it serves. A token that cannot name its principle does not belong in the system &mdash; the same subtraction discipline the product applies to features applies here to design decisions.</p>
+    </div>
+  </section>
+
+  <!-- ============ 02 COLOR ============ -->
+  <section style="margin-top:56px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">02</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Color Palette</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">One periwinkle atmosphere.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">The palette is a single cool atmosphere with one warm exception. Periwinkle is the environment; deep indigo is the ink; a warm terracotta is reserved &mdash; strictly &mdash; for the Hero. Color carries meaning through <em>value</em>, not hue: things recede by getting lighter and quieter, never by changing color.</p>
+
+    <!-- Core periwinkle ramp -->
+    <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:12px;">Periwinkle ramp &mdash; the environment</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:26px;">
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(58,58,139,.12);"><div style="height:64px;background:#F1F1FC;"></div><div style="padding:8px 10px;background:#fff;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11.5px;color:#2B2B6E;">Mist</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;color:#8888B8;">#F1F1FC</div></div></div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(58,58,139,.12);"><div style="height:64px;background:#E6E5F8;"></div><div style="padding:8px 10px;background:#fff;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11.5px;color:#2B2B6E;">Haze</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;color:#8888B8;">#E6E5F8</div></div></div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(58,58,139,.12);"><div style="height:64px;background:#B8B7F0;"></div><div style="padding:8px 10px;background:#fff;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11.5px;color:#2B2B6E;">Lavender</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;color:#8888B8;">#B8B7F0</div></div></div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(58,58,139,.12);"><div style="height:64px;background:#A6A5E8;"></div><div style="padding:8px 10px;background:#fff;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11.5px;color:#2B2B6E;">Periwinkle</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;color:#8888B8;">#A6A5E8</div></div></div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(58,58,139,.12);"><div style="height:64px;background:#6664CE;"></div><div style="padding:8px 10px;background:#fff;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11.5px;color:#2B2B6E;">Indigo</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;color:#8888B8;">#6664CE</div></div></div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(58,58,139,.12);"><div style="height:64px;background:#2A2966;"></div><div style="padding:8px 10px;background:#fff;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11.5px;color:#2B2B6E;">Deep Indigo</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;color:#8888B8;">#2A2966</div></div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <!-- Ink / text ramp -->
+      <div>
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:12px;">Ink ramp &mdash; text on light</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#232360;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:13px;color:#2B2B6E;flex:1;">Primary &mdash; headings</span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#232360</span></div>
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#33336E;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#33336E;flex:1;">Body</span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#33336E</span></div>
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#6E6EA8;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#6E6EA8;flex:1;">Muted &mdash; labels</span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#6E6EA8</span></div>
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#9A9AC0;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#9A9AC0;flex:1;">Quiet &mdash; captions</span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#9A9AC0</span></div>
+        </div>
+      </div>
+      <!-- Accent + neutrals -->
+      <div>
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:12px;">Accent &amp; surface</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;align-items:center;gap:12px;background:#FBF3F0;border:1px solid rgba(217,130,92,.24);border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#D9825C;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:13px;color:#B0603F;flex:1;">Terracotta &mdash; <em>Hero only</em></span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#B79A8E;">#D9825C</span></div>
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#F7F6F2;border:1px solid rgba(58,58,139,.14);flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#33336E;flex:1;">Soft Ivory &mdash; page</span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#F7F6F2</span></div>
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#E9E4DC;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#33336E;flex:1;">Warm Taupe &mdash; rest</span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#E9E4DC</span></div>
+          <div style="display:flex;align-items:center;gap:12px;background:#F6F5FD;border-radius:10px;padding:9px 14px;"><span style="width:22px;height:22px;border-radius:6px;background:#5A9668;flex-shrink:0;"></span><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#3E6B4A;flex:1;">Sage &mdash; done, <em>never alert</em></span><span style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;">#5A9668</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;background:#FBF6EC;border:1px solid rgba(200,150,60,.3);border-radius:14px;padding:16px 22px;break-inside:avoid;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A6A20;margin-bottom:8px;">The terracotta law</div>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.66;color:#5C4A28;margin:0;">Warm terracotta is the one hue that draws the eye against the cool field &mdash; so it is spent on exactly one thing: the Hero. It never marks a secondary action, a badge, or a status. This single reservation is what keeps &ldquo;one dominant object&rdquo; enforceable in color. <span style="color:#9A6A20;font-weight:600;">Serves Constitution &sect;A &mdash; exactly one dominant object.</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 03 TYPOGRAPHY ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">03</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Typography</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Editorial voice, quiet mechanics.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 24px;max-width:38em;">Two families, each with one job. <strong>Hanken Grotesk</strong> is the editorial voice &mdash; it carries every heading and every sentence, set with generous line-height so prose feels unhurried. <strong>Quicksand</strong> is the instrument panel &mdash; used only for eyebrows, labels, and numerals, always uppercase and widely tracked so it reads as machinery, not narrative. The contrast between the two is what makes the interface feel authored rather than assembled.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;">
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.18);border-radius:14px;padding:20px 22px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:40px;line-height:1;color:#232360;margin-bottom:8px;">Hanken Grotesk</div>
+        <div style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7A6FD8;margin-bottom:8px;">The editorial voice</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#3C3C7A;margin:0;">Headings &amp; body. Weights 300&ndash;800. Warm, humanist, confident at large sizes; calm and readable at small ones.</p>
+      </div>
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.18);border-radius:14px;padding:20px 22px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:34px;line-height:1;color:#232360;margin-bottom:8px;letter-spacing:.01em;">Quicksand</div>
+        <div style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7A6FD8;margin-bottom:8px;">The instrument panel</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#3C3C7A;margin:0;">Eyebrows, labels, numerals. Weights 500&ndash;700, uppercase, &ge;.14em tracking. Never used for sentences.</p>
+      </div>
+    </div>
+
+    <!-- Type scale specimens -->
+    <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:14px;">The editorial scale</div>
+    <div style="border:1px solid rgba(58,58,139,.14);border-radius:16px;overflow:hidden;break-inside:avoid;">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 22px;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:44px;line-height:0.98;letter-spacing:-.03em;color:#232360;">Display</div>
+        <div style="font-family:'Quicksand',sans-serif;font-size:11px;line-height:1.6;color:#8888B8;text-align:right;white-space:nowrap;">Hanken 800<br>72&ndash;82 / 0.98 / &minus;.03em</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 22px;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;">Heading</div>
+        <div style="font-family:'Quicksand',sans-serif;font-size:11px;line-height:1.6;color:#8888B8;text-align:right;white-space:nowrap;">Hanken 800<br>32 / 1.08 / &minus;.02em</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 22px;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:21px;line-height:1.2;letter-spacing:-.01em;color:#2B2B6E;">Title</div>
+        <div style="font-family:'Quicksand',sans-serif;font-size:11px;line-height:1.6;color:#8888B8;text-align:right;white-space:nowrap;">Hanken 700<br>20 / 1.2 / &minus;.01em</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 22px;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:16px;line-height:1.5;color:#33336E;">Body &mdash; the reading size, set at 1.5 line-height so prose feels unhurried and executive.</div>
+        <div style="font-family:'Quicksand',sans-serif;font-size:11px;line-height:1.6;color:#8888B8;text-align:right;white-space:nowrap;">Hanken 400&ndash;500<br>16 / 1.5 / 0</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 22px;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:12.5px;line-height:1.5;color:#6E6EA8;">Caption &mdash; supporting detail and figure notes, held quiet.</div>
+        <div style="font-family:'Quicksand',sans-serif;font-size:11px;line-height:1.6;color:#8888B8;text-align:right;white-space:nowrap;">Hanken 500<br>12 / 1.5 / 0</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 22px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7A6FD8;">Label / Eyebrow</div>
+        <div style="font-family:'Quicksand',sans-serif;font-size:11px;line-height:1.6;color:#8888B8;text-align:right;white-space:nowrap;">Quicksand 700<br>11 / 1 / .16em &middot; UPPER</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:24px;">
+      <div>
+        <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:16px;color:#2B2B6E;margin:0 0 7px;">Hierarchy by leap, not by crowd</h3>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.66;color:#33336E;margin:0;">Sizes jump in clear intervals so rank is legible at a glance. A screen shows at most one Display and one Heading &mdash; the eye should never have to compare two things of equal weight to find the important one.</p>
+      </div>
+      <div>
+        <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:16px;color:#2B2B6E;margin:0 0 7px;">Tracking signals role</h3>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.66;color:#33336E;margin:0;">Display and Heading tighten (negative tracking) to feel composed and intentional. Labels widen dramatically. The reader learns, without thinking, that wide-and-small means &ldquo;instrument&rdquo; and tight-and-large means &ldquo;statement.&rdquo;</p>
+      </div>
+    </div>
+    <div style="margin-top:18px;background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:14px 20px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;"><span style="color:#6A4AB0;font-weight:600;">Serves Constitution &sect;7 &amp; &sect;I</span> &mdash; progressive disclosure and calm. Restrained type contrast keeps the default surface quiet; depth of information is carried by structure, not by shouting.</p>
+    </div>
+  </section>
+
+  <!-- ============ 04 GLASS SYSTEM ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">04</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">The Glass System</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Three tiers of depth.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">Glass is how the workspace expresses spatial hierarchy. Every surface belongs to one of exactly three tiers, and the tier declares how near it floats &mdash; and therefore how much it matters. More blur, more opacity, and a longer shadow mean closer to the operator. Three is the whole vocabulary; a fourth tier would blur the ranking the system exists to make clear.</p>
+
+    <!-- Live glass demo over gradient -->
+    <div style="position:relative;border-radius:20px;overflow:hidden;padding:34px 30px;break-inside:avoid;background:#B8B7F0;">
+      <div style="position:absolute;inset:0;background-image:url('assets/glass-panel.png');background-size:cover;background-position:center;"></div>
+      <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:end;">
+        <!-- Base -->
+        <div style="background:rgba(255,255,255,.24);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);border:1px solid rgba(255,255,255,.4);border-radius:16px;padding:18px 18px 16px;box-shadow:0 4px 14px rgba(50,48,120,.1);">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4E4CB0;margin-bottom:26px;">Glass · Base</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:14px;color:#2B2B6E;">Ambient surface</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:#4A4A88;margin-top:4px;">The page and quiet zones &mdash; Support, Store.</div>
+        </div>
+        <!-- Raised -->
+        <div style="background:rgba(255,255,255,.42);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border:1px solid rgba(255,255,255,.6);border-radius:18px;padding:20px 20px 18px;box-shadow:0 12px 30px rgba(50,48,120,.16);">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4E4CB0;margin-bottom:34px;">Glass · Raised</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:15px;color:#2B2B6E;">Grouped cards</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:#4A4A88;margin-top:4px;">Queue items, resource cards, panels.</div>
+        </div>
+        <!-- Float -->
+        <div style="background:linear-gradient(150deg,rgba(255,255,255,.72),rgba(246,200,186,.38));backdrop-filter:blur(28px) saturate(165%);-webkit-backdrop-filter:blur(28px) saturate(165%);border:1.5px solid rgba(255,255,255,.75);border-radius:20px;padding:22px 22px 20px;box-shadow:0 22px 50px rgba(180,100,70,.22),0 4px 12px rgba(50,48,120,.12);">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C0603A;margin-bottom:40px;">Glass · Float</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#3A2A24;">The Hero</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:#9C6B54;margin-top:4px;">Nearest, brightest. Exactly one at a time.</div>
+        </div>
+      </div>
+      <div style="position:relative;font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:#3E3E7A;text-align:center;margin-top:20px;font-style:italic;opacity:.85;">Fig. 1 &mdash; The three tiers over a live periwinkle field. Nearness rises left to right.</div>
+    </div>
+
+    <!-- Token table -->
+    <div style="margin-top:22px;border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+      <div style="display:grid;grid-template-columns:0.8fr 1fr 1.1fr 1fr;background:#2E2E78;">
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Tier</div>
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Fill / Blur</div>
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Border / Shadow</div>
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Used for</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1fr 1.1fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Base</div>
+        <div style="padding:13px 16px;color:#4A4A88;">White 24% · blur 10</div>
+        <div style="padding:13px 16px;color:#4A4A88;">Hairline 40% · shadow 4/14 soft</div>
+        <div style="padding:13px 16px;color:#33336E;">Page, Support, Store</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1fr 1.1fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Raised</div>
+        <div style="padding:13px 16px;color:#4A4A88;">White 42% · blur 18</div>
+        <div style="padding:13px 16px;color:#4A4A88;">Border 60% · shadow 12/30</div>
+        <div style="padding:13px 16px;color:#33336E;">Cards, queue, panels</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1fr 1.1fr 1fr;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#B0603F;background:#FBF3F0;">Float</div>
+        <div style="padding:13px 16px;color:#4A4A88;">White 72% + warm · blur 28</div>
+        <div style="padding:13px 16px;color:#4A4A88;">Border 75% · shadow 22/50 warm</div>
+        <div style="padding:13px 16px;color:#33336E;"><strong>The Hero &mdash; only</strong></div>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:14px 20px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;"><span style="color:#6A4AB0;font-weight:600;">Serves Constitution &sect;A &amp; &sect;05</span> &mdash; one dominant object, enforced by depth. Only the Hero is granted Float; no other surface may borrow its blur, its warmth, or its shadow. Depth is the visual budget the Hero owns outright.</p>
+    </div>
+  </section>
+
+  <!-- ============ 05 SPACING & GRID ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">05</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Spacing &amp; the Executive Grid</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Structure that holds under load.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">Space is the architecture&rsquo;s skeleton. A single 4-based scale governs every gap, and generous room around the Hero is mandatory &mdash; whitespace is load-bearing, not leftover. When the day gets heavy the grid does not compress; volume moves into depth instead, so the room keeps its proportions whether it holds three items or three hundred.</p>
+
+    <!-- Spacing scale bars -->
+    <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:14px;">The 4-based scale</div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">4</span><div style="height:14px;width:4px;background:#8886DC;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">hairline gaps, icon padding</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">8</span><div style="height:14px;width:8px;background:#8886DC;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">within a component</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">12</span><div style="height:14px;width:12px;background:#7A78D6;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">label to value</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">16</span><div style="height:14px;width:16px;background:#7A78D6;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">card padding, gutter</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">24</span><div style="height:14px;width:24px;background:#6664CE;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">between grouped cards</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">32</span><div style="height:14px;width:32px;background:#6664CE;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">between sections</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">48</span><div style="height:14px;width:48px;background:#5F5DCB;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">the Hero&rsquo;s breathing room</span></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="width:56px;flex-shrink:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;text-align:right;">64</span><div style="height:14px;width:64px;background:#5F5DCB;border-radius:3px;"></div><span style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;">page margin, zone separation</span></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:20px;">
+      <!-- Grid diagram -->
+      <figure style="margin:0;background:linear-gradient(160deg,#EDECFB,#E6E5F8);border:1px solid rgba(102,110,203,.2);border-radius:18px;padding:18px;break-inside:avoid;">
+        <div style="display:flex;gap:5px;height:150px;">
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:4;background:linear-gradient(150deg,rgba(217,130,92,.32),rgba(246,200,186,.22));border:1px solid rgba(217,130,92,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#B0603F;">Hero</span></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+          <div style="flex:1;background:rgba(102,110,203,.12);border-radius:4px;"></div>
+        </div>
+        <figcaption style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#7676A0;text-align:center;margin-top:12px;font-style:italic;">Fig. 2 &mdash; 12-column field, 24px gutter. The Hero anchors the center columns; nothing shares its span.</figcaption>
+      </figure>
+      <!-- Grid rules -->
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#F6F5FD;border-radius:12px;padding:13px 16px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:3px;">Columns</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.5;color:#33336E;">12-column base · 24px gutter · elastic margins that grow, never shrink below 48px.</div></div>
+        <div style="background:#F6F5FD;border-radius:12px;padding:13px 16px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:3px;">Radius</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.5;color:#33336E;">Controls 12 · cards 16 · panels 18 · Hero 20. Nearer surfaces are softer.</div></div>
+        <div style="background:#F6F5FD;border-radius:12px;padding:13px 16px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:3px;">Under load</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.5;color:#33336E;">Padding never tightens to fit more. Overflow scrolls or drops to the Drawer.</div></div>
+      </div>
+    </div>
+    <div style="margin-top:18px;background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:14px 20px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;"><span style="color:#6A4AB0;font-weight:600;">Serves Constitution &sect;E</span> &mdash; load increases depth, never surface weight. Because the grid is fixed and padding never compresses, the workspace looks identical on its busiest and quietest day.</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 MOTION ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">06</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Motion Choreography</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">The camera changes focus.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">Motion in Executive Tower is a camera adjusting focus, never a room rearranging itself. Transitions are slow, soft, and deliberate &mdash; buttery, not snappy. Emphasis cross-fades between tiers; the Hero settles into place with weight. One thing moves at a time, and motion only ever signals a genuine change of state.</p>
+
+    <!-- Duration tokens -->
+    <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:14px;">Duration tokens</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;">
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:16px 18px;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:26px;color:#232360;">120<span style="font-size:14px;font-weight:600;color:#8888B8;">ms</span></div><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5F5DCB;margin:6px 0 3px;">Response</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.45;color:#6E6EA8;">Hover &amp; press feedback</div></div>
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:16px 18px;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:26px;color:#232360;">280<span style="font-size:14px;font-weight:600;color:#8888B8;">ms</span></div><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5F5DCB;margin:6px 0 3px;">Settle</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.45;color:#6E6EA8;">Cards entering, disclosure</div></div>
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:16px 18px;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:26px;color:#232360;">480<span style="font-size:14px;font-weight:600;color:#8888B8;">ms</span></div><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C0603A;margin:6px 0 3px;">Focus</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.45;color:#6E6EA8;">Hero hand-off, re-weighting</div></div>
+      <div style="background:#F1F1FC;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:16px 18px;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:26px;color:#232360;">720<span style="font-size:14px;font-weight:600;color:#8888B8;">ms</span></div><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5F5DCB;margin:6px 0 3px;">Atmosphere</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.45;color:#6E6EA8;">Background &amp; ambient shifts</div></div>
+    </div>
+
+    <!-- Easing curves -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;break-inside:avoid;">
+      <div style="border:1px solid rgba(58,58,139,.14);border-radius:16px;padding:18px 20px;">
+        <div style="display:flex;gap:16px;align-items:center;">
+          <svg width="88" height="88" viewBox="0 0 88 88" style="flex-shrink:0;">
+            <rect x="0" y="0" width="88" height="88" rx="12" fill="#F1F1FC"></rect>
+            <line x1="12" y1="76" x2="76" y2="12" stroke="rgba(102,110,203,.2)" stroke-width="1" stroke-dasharray="3 3"></line>
+            <path d="M12 76 C 20 26, 44 12, 76 12" fill="none" stroke="#6664CE" stroke-width="2.5" stroke-linecap="round"></path>
+          </svg>
+          <div>
+            <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#2B2B6E;">Focus Ease</div>
+            <div style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;margin:3px 0 6px;">cubic-bezier(.22,.7,.2,1)</div>
+            <p style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:#4A4A88;margin:0;">Fast to commit, long gentle arrival. The default &mdash; movement decelerates into stillness.</p>
+          </div>
+        </div>
+      </div>
+      <div style="border:1px solid rgba(58,58,139,.14);border-radius:16px;padding:18px 20px;">
+        <div style="display:flex;gap:16px;align-items:center;">
+          <svg width="88" height="88" viewBox="0 0 88 88" style="flex-shrink:0;">
+            <rect x="0" y="0" width="88" height="88" rx="12" fill="#F1F1FC"></rect>
+            <line x1="12" y1="76" x2="76" y2="12" stroke="rgba(102,110,203,.2)" stroke-width="1" stroke-dasharray="3 3"></line>
+            <path d="M12 76 C 34 60, 54 28, 76 12" fill="none" stroke="#8E61C9" stroke-width="2.5" stroke-linecap="round"></path>
+          </svg>
+          <div>
+            <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#2B2B6E;">Calm Ease</div>
+            <div style="font-family:'Quicksand',sans-serif;font-size:11px;color:#8888B8;margin:3px 0 6px;">cubic-bezier(.4,.1,.3,1)</div>
+            <p style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:#4A4A88;margin:0;">Symmetric and unhurried, for opacity and atmosphere. No overshoot, ever &mdash; bounce reads as alarm.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:linear-gradient(120deg,#2E2E78,#3F3D9E);border-radius:16px;padding:24px 28px;break-inside:avoid;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:18px;line-height:1.5;color:#F0F0FF;margin:0;text-wrap:pretty;">&ldquo;Nothing springs, flashes, or bounces. Emphasis fades in; the Hero settles like a hand set on a desk. If a motion draws attention to itself rather than to a change of state, it is wrong.&rdquo;</p>
+    </div>
+    <div style="margin-top:16px;background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:14px 20px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;"><span style="color:#6A4AB0;font-weight:600;">Serves Constitution &sect;9 &amp; &sect;H</span> &mdash; adapt emphasis, never change modes. Motion re-weights the same room; it never cuts to a new one.</p>
+    </div>
+  </section>
+
+  <!-- ============ 07 INTERACTION STATES ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">07</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Interaction States</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">States that reassure, not alert.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">Feedback stays inside the periwinkle family. Interaction is confirmed by a gentle rise in light or depth &mdash; never by a jump to a saturated &ldquo;alert&rdquo; color. The operator should feel acknowledged, not startled. A control that has to shout to be noticed has failed the calm requirement.</p>
+
+    <!-- Button state specimens -->
+    <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA8;margin-bottom:14px;">Primary action &mdash; through its states</div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;align-items:center;">
+      <div style="text-align:center;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;background:#6664CE;padding:11px 26px;border-radius:12px;box-shadow:0 6px 16px rgba(102,100,206,.28);">Continue</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8888B8;margin-top:8px;">Rest</div></div>
+      <div style="text-align:center;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;background:#5A58C4;padding:11px 26px;border-radius:12px;box-shadow:0 10px 24px rgba(102,100,206,.36);transform:translateY(-1px);">Continue</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8888B8;margin-top:8px;">Hover · +light, lift</div></div>
+      <div style="text-align:center;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:14px;color:#EDEDFB;background:#4E4CB0;padding:11px 26px;border-radius:12px;box-shadow:0 3px 8px rgba(102,100,206,.3);transform:translateY(1px);">Continue</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8888B8;margin-top:8px;">Active · settle down</div></div>
+      <div style="text-align:center;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;background:#6664CE;padding:11px 26px;border-radius:12px;box-shadow:0 0 0 3px rgba(166,165,232,.6),0 6px 16px rgba(102,100,206,.28);">Continue</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8888B8;margin-top:8px;">Focus · soft halo</div></div>
+      <div style="text-align:center;"><div style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:14px;color:#A6A5C8;background:#E6E5F2;padding:11px 26px;border-radius:12px;">Continue</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8888B8;margin-top:8px;">Disabled · recede</div></div>
+    </div>
+
+    <!-- State token table -->
+    <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;margin-top:14px;break-inside:avoid;">
+      <div style="display:grid;grid-template-columns:0.8fr 1.4fr 1fr;background:#2E2E78;">
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">State</div>
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Signal</div>
+        <div style="padding:11px 16px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Never</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1.4fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Hover</div>
+        <div style="padding:13px 16px;color:#4A4A88;">Value +6%, shadow deepens, 1px lift. 120ms Focus Ease.</div>
+        <div style="padding:13px 16px;color:#9A6A6A;">A new hue or a border flash.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1.4fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Active</div>
+        <div style="padding:13px 16px;color:#4A4A88;">Value &minus;10%, shadow contracts, 1px press.</div>
+        <div style="padding:13px 16px;color:#9A6A6A;">A scale pop or ripple.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1.4fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Focus</div>
+        <div style="padding:13px 16px;color:#4A4A88;">3px lavender halo at 60% &mdash; visible, soft-edged.</div>
+        <div style="padding:13px 16px;color:#9A6A6A;">A hard high-contrast ring.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 1.4fr 1fr;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 16px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Selected</div>
+        <div style="padding:13px 16px;color:#4A4A88;">Fills to Haze, hairline indigo edge. Quietly held.</div>
+        <div style="padding:13px 16px;color:#9A6A6A;">Terracotta &mdash; reserved for the Hero.</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:14px 20px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;"><span style="color:#6A4AB0;font-weight:600;">Serves Constitution &sect;J &amp; &sect;7</span> &mdash; visual calm is protected. States move within one hue family so no interaction can spike the operator&rsquo;s arousal. Red and amber are reserved for true system failure only.</p>
+    </div>
+  </section>
+
+  <!-- ============ 08 GOVERNANCE ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">08</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Governance &amp; Traceability</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Every token answers to a principle.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">The design system is subordinate to the Constitution, not parallel to it. When the two conflict, the Constitution wins and the token is revised. The table below is the acceptance test: every foundational decision must trace to a governing principle, or it is removed.</p>
+
+    <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+      <div style="display:grid;grid-template-columns:0.9fr 1.5fr 1fr;background:#2E2E78;">
+        <div style="padding:11px 18px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Decision</div>
+        <div style="padding:11px 18px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Rule</div>
+        <div style="padding:11px 18px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Principle</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.9fr 1.5fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Terracotta</div>
+        <div style="padding:13px 18px;color:#4A4A88;">Warm accent spent on the Hero alone.</div>
+        <div style="padding:13px 18px;color:#6A4AB0;font-weight:600;">&sect;A One dominant object</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.9fr 1.5fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Glass Float</div>
+        <div style="padding:13px 18px;color:#4A4A88;">Nearest tier granted only to the Hero.</div>
+        <div style="padding:13px 18px;color:#6A4AB0;font-weight:600;">&sect;05 Attention hierarchy</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.9fr 1.5fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Fixed grid</div>
+        <div style="padding:13px 18px;color:#4A4A88;">Padding never compresses; overflow goes to depth.</div>
+        <div style="padding:13px 18px;color:#6A4AB0;font-weight:600;">&sect;E Load &rarr; depth</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.9fr 1.5fr 1fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Focus Ease</div>
+        <div style="padding:13px 18px;color:#4A4A88;">Slow decel, no overshoot; emphasis cross-fades.</div>
+        <div style="padding:13px 18px;color:#6A4AB0;font-weight:600;">&sect;H Adapt, not switch</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.9fr 1.5fr 1fr;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;">
+        <div style="padding:13px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">One-hue states</div>
+        <div style="padding:13px 18px;color:#4A4A88;">Feedback stays periwinkle; no alert colors.</div>
+        <div style="padding:13px 18px;color:#6A4AB0;font-weight:600;">&sect;J Calm protected</div>
+      </div>
+    </div>
+
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.68;color:#33336E;margin:20px 0 0;max-width:38em;">The governing test for any new token mirrors the product&rsquo;s own: <strong>does it make the room quieter or louder?</strong> A token that adds noise, contrast, or decision-cost is redesigned or declined. Evolution begins by amending this document &mdash; never by improvising in the interface.</p>
+
+    <!-- Colophon -->
+    <div style="margin-top:44px;padding-top:22px;border-top:2px solid #2E2E78;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
+      <div>
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:#3A3A8B;">Executive&nbsp;Tower</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.6;color:#6E6EA8;margin:8px 0 0;max-width:26em;">The visual constitution. Subordinate to the Product Constitution; authoritative over every interface. Type &middot; Color &middot; Glass &middot; Space &middot; Motion.</p>
+      </div>
+      <div style="text-align:right;font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.7;color:#9A9AC0;flex-shrink:0;">
+        <div style="font-weight:700;color:#4E4CB0;">Design System</div>
+        <div>Version 1.0 &middot; Permanent</div>
+      </div>
+    </div>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

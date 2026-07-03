@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  body{background:#B8B7F0}
+  ::selection{background:#C8A8E9;color:#fff}
+</style>
+</helmet>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="letter" margin="0.85in" hint-size="816px,1056px">
+
+  <!-- ============ COVER ============ -->
+  <div style="position:relative;margin:-0.85in -0.85in 0;height:9.6in;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;break-after:page;color:#20205C;">
+    <div style="position:absolute;inset:0;background-image:url('assets/cover-gradient.png');background-size:cover;background-position:52% 45%;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(230,230,255,.28) 0%,rgba(200,200,250,.05) 40%,rgba(90,88,200,.32) 100%);"></div>
+
+    <div style="position:relative;padding:0.95in 0.85in 0;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:#3A3A8B;">Executive&nbsp;Tower</div>
+      <div style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(45,45,112,.72);">Product Constitution</div>
+    </div>
+
+    <div style="position:relative;padding:0 0.85in;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:rgba(45,45,112,.7);margin-bottom:22px;">The Permanent Specification</div>
+      <h1 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:82px;line-height:0.98;letter-spacing:-.03em;color:#232360;margin:0 0 26px;max-width:9.2in;">A workspace<br>that guides<br>attention.</h1>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:rgba(40,40,105,.86);max-width:5.6in;margin:0;">Executive Tower is not a dashboard, a task manager, or a project tool. It is an executive workspace designed to reduce cognitive load and direct attention across an eight-hour day &mdash; closer to entering a premium office than opening software.</p>
+    </div>
+
+    <div style="position:relative;padding:0 0.85in 0.95in;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;">
+      <div style="display:flex;gap:0;align-items:stretch;background:rgba(255,255,255,.34);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.6);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(50,48,120,.22);">
+        <div style="padding:14px 22px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:20px;color:#2E2E78;">1</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Orient</div></div>
+        <div style="padding:14px 22px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:20px;color:#2E2E78;">2</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Execute</div></div>
+        <div style="padding:14px 22px;text-align:center;border-right:1px solid rgba(255,255,255,.5);"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:20px;color:#2E2E78;">3</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Support</div></div>
+        <div style="padding:14px 22px;text-align:center;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:20px;color:#2E2E78;">4</div><div style="font-family:'Quicksand',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(45,45,112,.68);margin-top:2px;">Store</div></div>
+      </div>
+      <div style="text-align:right;font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.7;color:rgba(40,40,105,.74);">
+        <div style="font-weight:700;color:#2E2E78;">Version 1.0</div>
+        <div>Authoritative reference</div>
+        <div>Product Design &amp; HCI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 01 PHILOSOPHY ============ -->
+  <section style="margin-top:8px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">01</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Product Philosophy</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">A workspace, not a tool for managing work.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:18px;line-height:1.56;color:#454592;margin:0 0 22px;max-width:38em;">Most productivity software asks the operator to manage it: to sort, file, prioritize, and decide before any real work can begin. Executive Tower inverts that relationship. Its single obligation is to hold the operator's attention on the one thing that matters right now, and to keep everything else within reach but out of the way.</p>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;line-height:1.72;color:#33336E;margin:0 0 14px;max-width:38em;">This document is the permanent specification for that product. It is written to be used as an authoritative reference &mdash; every section states not only <em>what</em> the architecture is, but <em>why</em> it exists and the criteria by which future changes will be judged. The architecture described here is the product's current direction. It is to be strengthened and defended, not replaced. A change is warranted only where it materially reduces cognitive load or improves long-term usability.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px;">
+      <div style="background:#FBF1EF;border:1px solid rgba(216,130,92,.28);border-radius:16px;padding:22px 24px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B0603F;margin-bottom:14px;">What we refuse</div>
+        <ul style="list-style:none;margin:0;padding:0;font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#5C4A44;">
+          <li style="padding:7px 0;border-bottom:1px solid rgba(216,130,92,.16);">Dashboard thinking &mdash; walls of metrics no one acts on</li>
+          <li style="padding:7px 0;border-bottom:1px solid rgba(216,130,92,.16);">Productivity clich&eacute;s &mdash; streaks, badges, busywork</li>
+          <li style="padding:7px 0;">Feature accumulation &mdash; capability added without subtraction</li>
+        </ul>
+      </div>
+      <div style="background:#EEEFFB;border:1px solid rgba(102,110,203,.28);border-radius:16px;padding:22px 24px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#4E52B8;margin-bottom:14px;">What we build toward</div>
+        <ul style="list-style:none;margin:0;padding:0;font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#3C3C7A;">
+          <li style="padding:7px 0;border-bottom:1px solid rgba(102,110,203,.16);">Architecture &amp; spatial hierarchy</li>
+          <li style="padding:7px 0;border-bottom:1px solid rgba(102,110,203,.16);">Environmental psychology &amp; attention management</li>
+          <li style="padding:7px 0;">Executive workflow &mdash; calm, decisive, unhurried</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 FOUR LAYERS ============ -->
+  <section style="margin-top:56px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">02</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">The Four Layers</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Orient &rarr; Execute &rarr; Support &rarr; Store.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">The entire product resolves to four layers of decreasing urgency. Every element on screen belongs to exactly one. This spine is the constitution's organizing law: it governs where things live, how loud they are allowed to be, and the order in which the eye should encounter them.</p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:stretch;gap:0;border-radius:16px;overflow:hidden;border:1px solid rgba(58,58,139,.14);">
+        <div style="width:8px;background:#8E61C9;flex-shrink:0;"></div>
+        <div style="padding:18px 22px;background:#F6F5FD;flex:1;display:flex;gap:26px;align-items:center;">
+          <div style="min-width:130px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#7145B5;">1 &middot; Orient</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;margin-top:2px;">Status Strip &middot; Mission</div></div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.55;color:#3C3C7A;">Establish where you stand and why today matters, in a single glance. Answered before any action is taken.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:stretch;gap:0;border-radius:16px;overflow:hidden;border:1px solid rgba(58,58,139,.14);">
+        <div style="width:8px;background:#D9825C;flex-shrink:0;"></div>
+        <div style="padding:18px 22px;background:#FBF3F0;flex:1;display:flex;gap:26px;align-items:center;">
+          <div style="min-width:130px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#C06B44;">2 &middot; Execute</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#B79A8E;margin-top:2px;">Current Work (Hero)</div></div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.55;color:#5C4A44;">The one active commitment. The dominant object on screen at all times &mdash; the reason the workspace exists.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:stretch;gap:0;border-radius:16px;overflow:hidden;border:1px solid rgba(58,58,139,.14);">
+        <div style="width:8px;background:#5F5DCB;flex-shrink:0;"></div>
+        <div style="padding:18px 22px;background:#F1F1FC;flex:1;display:flex;gap:26px;align-items:center;">
+          <div style="min-width:130px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#4E4CB0;">3 &middot; Support</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#8888B8;margin-top:2px;">Execution Queue &middot; Context</div></div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.55;color:#3C3C7A;">What comes next and what the current work needs. Present and legible, but always quieter than the Hero.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:stretch;gap:0;border-radius:16px;overflow:hidden;border:1px solid rgba(58,58,139,.14);">
+        <div style="width:8px;background:#9A9AC8;flex-shrink:0;"></div>
+        <div style="padding:18px 22px;background:#F5F5F9;flex:1;display:flex;gap:26px;align-items:center;">
+          <div style="min-width:130px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6E6EA0;">4 &middot; Store</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;color:#9A9AC0;margin-top:2px;">Drawer</div></div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.55;color:#55558A;">Everything not needed this moment. Always available, never intrusive. Out of sight until summoned.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 SPATIAL ARCHITECTURE ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">03</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Spatial Architecture</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">The plan of the office.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">Executive Tower is not laid out like a webpage. It is laid out like a room. The operator enters, orients along the top, and finds their attention drawn to the largest object &mdash; the desk. Support sits within arm's reach; storage waits along the wall. The floor plan below is the canonical arrangement. Emphasis may shift within it, but the ordering never does.</p>
+
+    <!-- Floorplan diagram -->
+    <figure style="margin:0;background:linear-gradient(160deg,#EDECFB 0%,#E6E5F8 100%);border:1px solid rgba(102,110,203,.2);border-radius:20px;padding:20px;break-inside:avoid;">
+      <!-- Status strip -->
+      <div style="background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.8);border-radius:12px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 6px 16px rgba(60,58,130,.08);">
+        <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#4E4CB0;">Executive Status Strip</span>
+        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#8080B0;font-weight:600;">Mission &middot; Progress &middot; Waiting &middot; Meetings &middot; Time</span>
+      </div>
+      <!-- Mission + Hero -->
+      <div style="display:grid;grid-template-columns:1fr 2.15fr;gap:14px;margin-top:14px;">
+        <div style="background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:16px;min-height:150px;display:flex;flex-direction:column;">
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#7145B5;">Mission</span>
+          <div style="margin-top:auto;font-family:'Hanken Grotesk',sans-serif;font-size:11px;line-height:1.7;color:#7676A8;font-weight:600;">Current Mission<br>Journey<br>Long-Term Goal</div>
+        </div>
+        <div style="background:linear-gradient(150deg,rgba(255,255,255,.85),rgba(246,200,186,.42));border:1.5px solid rgba(217,130,92,.5);border-radius:12px;padding:20px;min-height:150px;display:flex;flex-direction:column;box-shadow:0 14px 34px rgba(180,100,70,.16);position:relative;">
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#C0603A;">Current Work &middot; The Hero</span>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:21px;line-height:1.12;color:#3A2A24;margin-top:10px;letter-spacing:-.01em;">The one thing<br>that matters now.</div>
+          <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:12px;">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9C6B54;font-weight:600;">Current Step &middot; Why This Matters</span>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:11px;color:#fff;background:#D9825C;padding:6px 14px;border-radius:20px;">Continue &rarr;</span>
+          </div>
+        </div>
+      </div>
+      <!-- Queue + Context -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div style="background:rgba(255,255,255,.44);border:1px solid rgba(255,255,255,.65);border-radius:12px;padding:16px;min-height:104px;">
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#4E4CB0;">Execution Queue</span>
+          <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;">
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:10.5px;font-weight:700;color:#4E4CB0;background:rgba(102,110,203,.16);padding:4px 11px;border-radius:20px;">Now</span>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:10.5px;font-weight:600;color:#6E6EA8;background:rgba(102,110,203,.09);padding:4px 11px;border-radius:20px;">Next</span>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:10.5px;font-weight:600;color:#8080B0;background:rgba(102,110,203,.06);padding:4px 11px;border-radius:20px;">Later</span>
+            <span style="font-family:'Hanken Grotesk',sans-serif;font-size:10.5px;font-weight:600;color:#A85B54;background:rgba(215,166,162,.16);padding:4px 11px;border-radius:20px;">Waiting</span>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.44);border:1px solid rgba(255,255,255,.65);border-radius:12px;padding:16px;min-height:104px;">
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#4E4CB0;">Context</span>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;line-height:1.85;color:#7676A8;font-weight:600;margin-top:10px;">Smart Resources &middot; Files<br>Notes &middot; Reference Material</div>
+        </div>
+      </div>
+      <!-- Drawer -->
+      <div style="background:rgba(154,154,200,.16);border:1px dashed rgba(110,110,160,.4);border-radius:12px;padding:11px 16px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#6E6EA0;">Drawer</span>
+        <span style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#8888A8;font-weight:600;">Completed &middot; Tickets &middot; Calendar &middot; Capture &middot; Archive &middot; History</span>
+      </div>
+      <figcaption style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:#7676A0;text-align:center;margin-top:16px;font-style:italic;">Fig. 1 &mdash; Canonical floor plan. The Hero occupies the desk; everything else defers to it in size and weight.</figcaption>
+    </figure>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:28px;">
+      <div>
+        <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:17px;color:#2B2B6E;margin:0 0 8px;">The mental model</h3>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.68;color:#33336E;margin:0;">Think of entering a thoughtfully designed office. You <strong>orient</strong> yourself along the top. Your eyes land on the <strong>work that matters most</strong>. Supporting material sits <strong>within reach</strong>. Everything else is <strong>stored nearby but out of the way</strong>. The operator never navigates a menu tree; they move through a room.</p>
+      </div>
+      <div>
+        <h3 style="font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:17px;color:#2B2B6E;margin:0 0 8px;">Why space, not tabs</h3>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.68;color:#33336E;margin:0;">Spatial memory is durable and effortless; navigation is neither. Because each function has one fixed home, the operator learns the room once and never relearns it. Persistent placement replaces the constant act of searching &mdash; the single largest hidden tax in most productivity software.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 VALIDATION ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">04</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Architecture Validation</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Every section earns its place.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 28px;max-width:38em;">Each of the six sections is evaluated against a single question: does it reduce the operator's cognitive load, or add to it? The verdict for all six is that they belong &mdash; with two refinements that sharpen boundaries rather than change structure. Redundancy was actively hunted; the notes record where.</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- Status Strip -->
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#F1F1FC;border-bottom:1px solid rgba(58,58,139,.1);">
+          <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:18px;color:#232360;">Status Strip</span><span style="font-family:'Quicksand',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7145B5;">Orient</span></div>
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#4E7A4E;background:rgba(90,150,90,.14);padding:5px 12px;border-radius:20px;">Confirmed</span>
+        </div>
+        <div style="padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;">
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Purpose</span><span>Instant orientation. A single horizontal band that answers &ldquo;where do I stand?&rdquo; without requiring a decision.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Contains</span><span>Mission title &middot; progress indicator &middot; waiting count &middot; meetings &middot; time.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Rationale</span><span>Read-only by design. The strip reports state; it never becomes a place to act. Keeping it glanceable and non-interactive prevents it from drifting into a toolbar.</span>
+        </div>
+      </div>
+
+      <!-- Mission -->
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#F6F5FD;border-bottom:1px solid rgba(58,58,139,.1);">
+          <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:18px;color:#232360;">Mission</span><span style="font-family:'Quicksand',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7145B5;">Orient</span></div>
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#4E7A4E;background:rgba(90,150,90,.14);padding:5px 12px;border-radius:20px;">Confirmed</span>
+        </div>
+        <div style="padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;">
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Purpose</span><span>Long-term context. Mission explains <em>why today's work matters</em> &mdash; the horizon that gives the Hero its meaning.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Contains</span><span>Current mission &middot; journey indicator &middot; long-term objective.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Rationale</span><span>Distinct from the Status Strip: the strip is <em>today</em>, Mission is <em>the arc</em>. It sits beside the Hero so purpose and action are read together. It changes rarely, so it stays visually quiet.</span>
+        </div>
+      </div>
+
+      <!-- Hero -->
+      <div style="border:1.5px solid rgba(217,130,92,.5);border-radius:16px;overflow:hidden;break-inside:avoid;box-shadow:0 10px 28px rgba(180,100,70,.1);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(120deg,#FBF3F0,#F9E7DF);border-bottom:1px solid rgba(217,130,92,.24);">
+          <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:18px;color:#3A2A24;">Current Work &mdash; the Hero</span><span style="font-family:'Quicksand',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#C0603A;">Execute</span></div>
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#B0603F;background:rgba(217,130,92,.18);padding:5px 12px;border-radius:20px;">Load-bearing</span>
+        </div>
+        <div style="padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#4A3A34;">
+          <span style="font-weight:700;color:#B08575;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Purpose</span><span>The primary focal point of the entire workspace. The single active commitment.</span>
+          <span style="font-weight:700;color:#B08575;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Contains</span><span>Current work &middot; current step &middot; why this matters &middot; a single Continue action.</span>
+          <span style="font-weight:700;color:#B08575;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Behavior</span><span>The Hero is never hidden and always remains the dominant visual object. Nothing else on screen may equal or exceed its weight.</span>
+          <span style="font-weight:700;color:#B08575;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Rationale</span><span>This is the product. Every other section is defined by its relationship to the Hero &mdash; feeding it, framing it, or getting out of its way. Its dominance is the load-bearing wall of the architecture.</span>
+        </div>
+      </div>
+
+      <!-- Execution Queue -->
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#F1F1FC;border-bottom:1px solid rgba(58,58,139,.1);">
+          <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:18px;color:#232360;">Execution Queue</span><span style="font-family:'Quicksand',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#4E4CB0;">Support</span></div>
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8A5A2A;background:rgba(217,150,92,.16);padding:5px 12px;border-radius:20px;">Confirmed &middot; Refined</span>
+        </div>
+        <div style="padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;">
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Purpose</span><span>Immediate execution support &mdash; what happens after the current step.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Contains</span><span>Now &middot; Next &middot; Later Today &middot; Waiting.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Behavior</span><span>Waiting items remain visually quieter than actionable work at all times.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Refinement</span><span>&ldquo;Now&rdquo; in the queue is the same object as the Hero, not a second copy. The queue should <em>point at</em> the Hero, never duplicate it &mdash; see the redundancy note opposite.</span>
+        </div>
+      </div>
+
+      <!-- Context -->
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#F1F1FC;border-bottom:1px solid rgba(58,58,139,.1);">
+          <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:18px;color:#232360;">Context</span><span style="font-family:'Quicksand',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#4E4CB0;">Support</span></div>
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#4E7A4E;background:rgba(90,150,90,.14);padding:5px 12px;border-radius:20px;">Confirmed</span>
+        </div>
+        <div style="padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;">
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Purpose</span><span>Reference without distraction &mdash; the material the current work draws on.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Contains</span><span>Smart resources &middot; context files &middot; notes &middot; reference material.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Behavior</span><span>Supports execution without competing with it. Surfaces what is relevant to the Hero; hides the rest.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Rationale</span><span>Context is pulled, not pushed. It should feel like a reference shelf beside the desk, not a feed demanding to be read.</span>
+        </div>
+      </div>
+
+      <!-- Drawer -->
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;break-inside:avoid;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#F4F4F8;border-bottom:1px solid rgba(58,58,139,.1);">
+          <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:18px;color:#232360;">Drawer</span><span style="font-family:'Quicksand',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6E6EA0;">Store</span></div>
+          <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#4E7A4E;background:rgba(90,150,90,.14);padding:5px 12px;border-radius:20px;">Confirmed</span>
+        </div>
+        <div style="padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;">
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Purpose</span><span>Everything not immediately needed &mdash; held safely, retrieved on demand.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Contains</span><span>Completed work &middot; tickets &middot; calendar &middot; archive &middot; capture.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Behavior</span><span>Always available, never intrusive. Closed by default; nothing inside it can raise its voice into the workspace.</span>
+          <span style="font-weight:700;color:#6E6EA8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;">Rationale</span><span>The Drawer is the pressure-release valve for the whole system. Because it exists, the active surface can stay ruthlessly minimal &mdash; anything can be set down without being lost.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:22px;background:#FBF6EC;border:1px solid rgba(200,150,60,.3);border-radius:14px;padding:18px 22px;break-inside:avoid;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A6A20;margin-bottom:8px;">Redundancy Note &mdash; the only overlap found</div>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.66;color:#5C4A28;margin:0;">The Hero's &ldquo;Current Work&rdquo; and the Queue's &ldquo;Now&rdquo; describe the same commitment. They must be modeled as <strong>one object shown in two roles</strong> &mdash; the Hero is its full expression, the Queue entry is a pointer. If they can ever disagree, the architecture has failed. Similarly, &ldquo;Capture&rdquo; appears as both an always-available input and a Drawer item; treat the Drawer entry as the <em>review inbox</em> for captures, not a second capture surface.</p>
+    </div>
+  </section>
+
+  <!-- ============ 05 ATTENTION HIERARCHY ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">05</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">The Attention Hierarchy</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">One dominant object. Always.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 28px;max-width:38em;">Visual weight is a budget, and the Hero owns the majority of it. Every section below has a fixed ceiling on how loud it may be. These proportions are not decorative &mdash; they are the mechanism by which the workspace guides attention instead of asking the operator to hunt for it.</p>
+
+    <figure style="margin:0;background:#F4F4FD;border:1px solid rgba(102,110,203,.18);border-radius:20px;padding:26px 28px;break-inside:avoid;">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:130px;flex-shrink:0;text-align:right;font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:14px;color:#B0603F;">Current Work<div style="font-weight:600;font-size:11px;color:#C08A70;">the Hero</div></div>
+          <div style="height:38px;width:100%;border-radius:9px;background:linear-gradient(90deg,#D9825C,#E8A582);box-shadow:0 6px 16px rgba(217,130,92,.3);"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:130px;flex-shrink:0;text-align:right;font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:13px;color:#4E4CB0;">Execution Queue</div>
+          <div style="height:30px;width:58%;border-radius:9px;background:linear-gradient(90deg,#5F5DCB,#8886DC);"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:130px;flex-shrink:0;text-align:right;font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:13px;color:#7145B5;">Mission</div>
+          <div style="height:26px;width:42%;border-radius:9px;background:linear-gradient(90deg,#8E61C9,#B08AD9);"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:130px;flex-shrink:0;text-align:right;font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:13px;color:#6E6EA8;">Context</div>
+          <div style="height:22px;width:30%;border-radius:9px;background:linear-gradient(90deg,#A7A7E8,#C3C3EF);"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:130px;flex-shrink:0;text-align:right;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:13px;color:#9A9AC0;">Drawer</div>
+          <div style="height:18px;width:18%;border-radius:9px;background:linear-gradient(90deg,#B8B8CE,#D0D0DE);"></div>
+        </div>
+      </div>
+      <figcaption style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:#7676A0;text-align:center;margin-top:22px;font-style:italic;">Fig. 2 &mdash; Relative visual weight. Bar length is the maximum emphasis each section may occupy, never a floor.</figcaption>
+    </figure>
+
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;line-height:1.72;color:#33336E;margin:22px 0 0;max-width:38em;">The rule that makes this durable: <strong>only one dominant object exists at any moment.</strong> The workspace may re-weight itself as the day changes &mdash; a blocked task can brighten the Waiting group, an approaching meeting can lift the Status Strip &mdash; but no re-weighting may ever produce a second object as loud as the Hero. Emphasis is borrowed from the quieter layers, never taken from the Hero.</p>
+  </section>
+
+  <!-- ============ 06 INFORMATION FLOW ============ -->
+  <section style="margin-top:56px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">06</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Information Flow</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Work moves in one direction.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 28px;max-width:38em;">A thought enters once and travels a single, predictable path. Nothing is entered twice; nothing quietly disappears. The operator can always answer &ldquo;where did that go?&rdquo; because there is only one place it could be.</p>
+
+    <figure style="margin:0;break-inside:avoid;">
+      <div style="display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:120px;background:#F1F1FC;border:1px solid rgba(102,110,203,.24);border-radius:14px;padding:16px 14px;text-align:center;">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7A6FD8;margin-bottom:6px;">Enters</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#2B2B6E;">Capture</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#8080B0;margin-top:3px;line-height:1.4;">A frictionless catch-all</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:20px;color:#9A9AD0;font-weight:700;">&rsaquo;</div>
+        <div style="flex:1;min-width:120px;background:#EEEFFB;border:1px solid rgba(102,110,203,.28);border-radius:14px;padding:16px 14px;text-align:center;">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#4E4CB0;margin-bottom:6px;">Sorts</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#2B2B6E;">Execution Queue</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#8080B0;margin-top:3px;line-height:1.4;">Now &middot; Next &middot; Later &middot; Waiting</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:20px;color:#9A9AD0;font-weight:700;">&rsaquo;</div>
+        <div style="flex:1;min-width:120px;background:linear-gradient(150deg,#FBF3F0,#F7E3D9);border:1.5px solid rgba(217,130,92,.5);border-radius:14px;padding:16px 14px;text-align:center;box-shadow:0 8px 20px rgba(217,130,92,.14);">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#C0603A;margin-bottom:6px;">Acts</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#3A2A24;">Current Work</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#B0805F;margin-top:3px;line-height:1.4;">The Hero &mdash; one at a time</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:20px;color:#9A9AD0;font-weight:700;">&rsaquo;</div>
+        <div style="flex:1;min-width:110px;background:#F1F4FC;border:1px solid rgba(102,110,203,.24);border-radius:14px;padding:16px 14px;text-align:center;">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5A70C0;margin-bottom:6px;">Closes</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#2B2B6E;">Completed</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#8080B0;margin-top:3px;line-height:1.4;">Into the Drawer</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:20px;color:#9A9AD0;font-weight:700;">&rsaquo;</div>
+        <div style="flex:1;min-width:110px;background:#F5F5F9;border:1px solid rgba(110,110,160,.24);border-radius:14px;padding:16px 14px;text-align:center;">
+          <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8080A8;margin-bottom:6px;">Rests</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:15px;color:#55558A;">History</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9A9AC0;margin-top:3px;line-height:1.4;">Retrievable, out of the way</div>
+        </div>
+      </div>
+      <figcaption style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:#7676A0;text-align:center;margin-top:16px;font-style:italic;">Fig. 3 &mdash; The single forward path. Every item travels left to right, never sideways into a parallel system.</figcaption>
+    </figure>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px;">
+      <div style="background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:16px 20px;">
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;"><strong>Waiting never interrupts.</strong> Blocked items live in the queue at a lower volume and surface only when they become actionable again. They pull, they do not push.</p>
+      </div>
+      <div style="background:#F6F5FD;border-left:3px solid #8E61C9;border-radius:0 12px 12px 0;padding:16px 20px;">
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;"><strong>Resources support, never lead.</strong> Context surfaces alongside the Hero it serves and recedes when that work closes. It is never the destination.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 07 COGNITIVE LOAD ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">07</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Reducing Cognitive Load</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Fewer decisions, quieter surface.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">The architecture is sound. These refinements sharpen it &mdash; each removes a decision, a duplicate, or a source of noise. None adds a feature. They are recommended only because they measurably lower mental effort.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:#F6F5FD;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:7px;">Collapse Now into the Hero</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;">Model the Hero and the queue's &ldquo;Now&rdquo; as one object. Removes a reconciliation the operator would otherwise perform every glance.</p>
+      </div>
+      <div style="background:#F6F5FD;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:7px;">Cap the visible queue</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;">Show a finite Now / Next / Later; let the remainder rest in the Drawer. A queue that scrolls forever reintroduces the anxiety the product removes.</p>
+      </div>
+      <div style="background:#F6F5FD;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:7px;">Make Context reactive</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;">Context should follow the Hero automatically, showing only what the current work needs. Manual filing of references is a decision the product can absorb.</p>
+      </div>
+      <div style="background:#F6F5FD;border:1px solid rgba(102,110,203,.16);border-radius:14px;padding:18px 20px;">
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#4E4CB0;margin-bottom:7px;">One capture, one inbox</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.6;color:#33336E;margin:0;">A single always-on capture affordance; everything captured lands in one Drawer inbox for later triage. Never ask <em>where</em> to file at the moment of capture.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;background:#EEF6EE;border:1px solid rgba(90,150,90,.24);border-radius:14px;padding:16px 22px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.64;color:#3A5A3A;margin:0;"><strong style="color:#2E4E2E;">Nothing is missing.</strong> The strongest evidence for the architecture is what it declines to add. There is no settings sprawl, no view switcher, no analytics surface &mdash; and the workspace is complete without them. The right move is subtraction, not addition.</p>
+    </div>
+  </section>
+
+  <!-- ============ 08 A DAY IN THE TOWER ============ -->
+  <section style="margin-top:56px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">08</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">A Day in the Tower</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">How the room changes across eight hours.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">The structure is fixed; the emphasis breathes. Across the day the workspace shifts which layer it lifts &mdash; never which layer exists. The Hero remains dominant throughout.</p>
+
+    <div style="display:flex;flex-direction:column;gap:0;border-left:2px solid rgba(102,110,203,.28);padding-left:0;">
+      <div style="display:grid;grid-template-columns:118px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="padding-left:20px;border-left:none;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#8E61C9;letter-spacing:.04em;">Morning</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9A9AC0;">Orient</div></div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;">Status Strip and Mission lead briefly &mdash; the operator reads where they stand and why it matters. The Hero is already set to the first commitment. No planning ritual, no empty state; the room is ready.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:118px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="padding-left:20px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#D9825C;letter-spacing:.04em;">Midday</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#C0A090;">Execute</div></div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;">Deep in execution. The Hero holds the full weight; the Queue quietly advances behind it; Context surfaces only what the current step needs. Orientation recedes to a glanceable band. This is the product's resting state.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:118px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="padding-left:20px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#5F5DCB;letter-spacing:.04em;">Afternoon</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9A9AC0;">Support</div></div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;">Waiting items begin resolving; meetings approach. The Queue and Status Strip lift slightly to keep commitments visible, but each hand-off simply re-points the Hero at the next commitment &mdash; the desk is never cleared and re-set.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:118px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(58,58,139,.1);">
+        <div style="padding-left:20px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#666ECB;letter-spacing:.04em;">End of Day</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9A9AC0;">Review</div></div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;">Completed work moves to the Drawer; tomorrow's Hero is chosen and Next is confirmed. Planning is lightweight &mdash; a single decision about what leads tomorrow, not a rebuild of the board.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:118px 1fr;gap:20px;padding:16px 0;">
+        <div style="padding-left:20px;"><div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:13px;color:#6E6EA0;letter-spacing:.04em;">Shutdown</div><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;color:#9A9AC0;">Store</div></div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.62;color:#33336E;margin:0;">The workspace reaches a state of visible calm: one Hero staged, a short queue, a closed Drawer. The operator leaves knowing nothing is lost and tomorrow's first move is already decided.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 09 INTERACTION PHILOSOPHY ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">09</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Interaction Philosophy</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">The interface guides attention; it does not request decisions.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">How the workspace <em>feels</em> is part of the specification. The operator should sense a calm, unhurried room that anticipates rather than interrogates. The following define the intended experience.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:#F4F4FD;border-radius:16px;padding:20px 22px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:6px;">Movement is settling, not shuffling</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.62;color:#3C3C7A;margin:0;">Transitions are slow, soft, and few. Elements ease into place as if physical. Motion signals a change of state &mdash; never movement for its own sake.</p>
+      </div>
+      <div style="background:#F4F4FD;border-radius:16px;padding:20px 22px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:6px;">Attention is directed, not demanded</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.62;color:#3C3C7A;margin:0;">Emphasis and stillness lead the eye. The Hero is where the room is brightest. Nothing flashes, badges, or competes for notice.</p>
+      </div>
+      <div style="background:#F4F4FD;border-radius:16px;padding:20px 22px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:6px;">Disclosure is progressive</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.62;color:#3C3C7A;margin:0;">Depth is available on approach, not presented up front. The operator sees a calm surface and reaches for detail only when a task calls for it.</p>
+      </div>
+      <div style="background:#F4F4FD;border-radius:16px;padding:20px 22px;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:6px;">Calm is a feature, not a mood</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;line-height:1.62;color:#3C3C7A;margin:0;">Generous space, soft light, and restraint are functional: they lower arousal so sustained focus is possible. Visual quiet is defended as rigorously as any capability.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:linear-gradient(120deg,#2E2E78,#3F3D9E);border-radius:16px;padding:26px 30px;">
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:19px;line-height:1.5;color:#F0F0FF;margin:0;text-wrap:pretty;">&ldquo;The workspace should adapt its emphasis instead of changing modes. There is one room. It grows brighter or quieter &mdash; it never becomes a different room.&rdquo;</p>
+    </div>
+  </section>
+
+  <!-- ============ 10 PERMANENT PRINCIPLES ============ -->
+  <section style="margin-top:56px;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">10</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Permanent Product Principles</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">The laws every future feature must obey.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">These are permanent. They do not expire with a redesign or bend for a roadmap. A proposal that violates one of them is, by definition, off-architecture.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;">
+      <ol style="list-style:none;margin:0;padding:0;counter-reset:pl;">
+        <li style="counter-increment:pl;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">01</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">One mission at a time.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">02</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">One current commitment &mdash; one Hero.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">03</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">One clear path forward at all times.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">04</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Context supports execution but never competes with it.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">05</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Store everything else.</span></li>
+      </ol>
+      <ol style="list-style:none;margin:0;padding:0;">
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">06</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Reduce decisions; the product absorbs them.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">07</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Preserve visual calm as a functional requirement.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">08</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Progressive disclosure over persistent complexity.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">09</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Adapt emphasis, never change modes.</span></li>
+        <li style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(58,58,139,.1);"><span style="font-family:'Quicksand',sans-serif;font-weight:700;color:#8E61C9;font-size:14px;min-width:20px;">10</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;font-weight:600;">Every feature must reduce cognitive load.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 11 ARCHITECTURAL RISKS ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">11</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Architectural Risks &amp; Drift</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">How the Tower quietly becomes a dashboard.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">Drift is never a single bad decision; it is an accumulation of reasonable ones. Each addition below sounds helpful and each, unchecked, pulls the product back toward the software it was built to replace. Name them so they can be refused.</p>
+
+    <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1.1fr 1.2fr 1.3fr;background:#2E2E78;">
+        <div style="padding:11px 18px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">The drift</div>
+        <div style="padding:11px 18px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">Symptom</div>
+        <div style="padding:11px 18px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#C8C8F0;">The defense</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.2fr 1.3fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.55;">
+        <div style="padding:14px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Metrics creep</div>
+        <div style="padding:14px 18px;color:#4A4A88;">Charts and counts added &ldquo;for visibility.&rdquo; The Status Strip swells into a dashboard.</div>
+        <div style="padding:14px 18px;color:#33336E;">A number earns its place only if it changes the next action. If it doesn't, it belongs in the Drawer.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.2fr 1.3fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.55;">
+        <div style="padding:14px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Queue inflation</div>
+        <div style="padding:14px 18px;color:#4A4A88;">Every capture becomes a visible task; the queue becomes a backlog to manage.</div>
+        <div style="padding:14px 18px;color:#33336E;">Cap the visible queue. Depth lives in the Drawer. The surface shows only what is actionable soon.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.2fr 1.3fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.55;">
+        <div style="padding:14px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Second Hero</div>
+        <div style="padding:14px 18px;color:#4A4A88;">A notification, banner, or &ldquo;urgent&rdquo; card rivals the Hero for dominance.</div>
+        <div style="padding:14px 18px;color:#33336E;">Nothing may equal the Hero's weight. Urgency re-points the Hero; it does not open a second focal point.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.2fr 1.3fr;border-bottom:1px solid rgba(58,58,139,.1);font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.55;">
+        <div style="padding:14px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Mode multiplication</div>
+        <div style="padding:14px 18px;color:#4A4A88;">Views, tabs, and layouts proliferate; the operator now navigates instead of works.</div>
+        <div style="padding:14px 18px;color:#33336E;">One room, adaptive emphasis. New needs adjust weight within the plan &mdash; they do not add a plan.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.2fr 1.3fr;font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.55;">
+        <div style="padding:14px 18px;font-weight:700;color:#2B2B6E;background:#F6F5FD;">Configuration sprawl</div>
+        <div style="padding:14px 18px;color:#4A4A88;">Settings, custom fields, and workflow options push decisions back onto the operator.</div>
+        <div style="padding:14px 18px;color:#33336E;">The product decides. Every option offered is a decision the architecture failed to absorb.</div>
+      </div>
+    </div>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.68;color:#33336E;margin:20px 0 0;max-width:38em;">The governing test for any proposal: <strong>does it make the room quieter or louder?</strong> Enterprise software accretes; Executive Tower must be actively defended against accretion. Subtraction is a first-class roadmap item.</p>
+  </section>
+
+  <!-- ============ 12 STRESS TESTS ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">12</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Operational Stress Tests</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Does it hold under load?</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">An architecture is only as good as its worst day. Each scenario below is a condition the workspace must survive without abandoning its hierarchy.</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;padding:20px 22px;break-inside:avoid;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:7px;">Quiet day vs. high-pressure day</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.64;color:#33336E;margin:0;">On a quiet day the room is nearly empty &mdash; a single Hero and a short queue &mdash; and that emptiness is correct, not a failure to fill space. Under load (20+ tasks, 15 tickets, 30 resources), the surface does <em>not</em> grow. Volume flows into the Drawer and into scrollable depth within each section; the visible workspace shows the same shape it always has. The operator sees a manageable few, not the full count.</p>
+      </div>
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;padding:20px 22px;break-inside:avoid;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:7px;">Heavy interruption &amp; context switching</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.64;color:#33336E;margin:0;">An interruption re-points the Hero and sets the previous commitment down into the queue &mdash; it never opens a competing pane. Because the Hero always states its own &ldquo;current step&rdquo; and &ldquo;why this matters,&rdquo; re-entry after a switch is instant: the operator reads the Hero and is back. The room absorbs the switch; the operator does not rebuild their place.</p>
+      </div>
+      <div style="border:1px solid rgba(58,58,139,.16);border-radius:16px;padding:20px 22px;break-inside:avoid;">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:16px;color:#2B2B6E;margin-bottom:7px;">End-of-day planning</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;line-height:1.64;color:#33336E;margin:0;">Planning is a single act of selection, not a construction project: choose tomorrow's Hero, confirm Next, let the rest settle into the Drawer. The architecture resists the temptation to turn shutdown into a second work session.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;background:linear-gradient(135deg,#FBF3F0,#F7E7DF);border:1.5px solid rgba(217,130,92,.4);border-radius:18px;padding:26px 30px;break-inside:avoid;">
+      <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#B0603F;margin-bottom:10px;">The critical guarantee &mdash; the Hero under maximum load</div>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;line-height:1.68;color:#4A3A34;margin:0 0 12px;">Hierarchy is enforced by <strong>relationship, not by count.</strong> The Hero is dominant because it is the largest, brightest, most central object &mdash; and those properties are fixed, not proportional to how much else exists. Adding a hundred items to the Drawer changes nothing about the Hero's size or position.</p>
+      <p style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;line-height:1.68;color:#4A3A34;margin:0;">Load is expressed as <em>depth</em> (scroll, Drawer, quiet counts), never as <em>weight</em> on the primary surface. When everything is urgent, the workspace still shows exactly one Hero &mdash; the product's core promise is precisely to make that one choice on the operator's behalf. The busier the day, the more valuable the single focal point becomes.</p>
+    </div>
+  </section>
+
+  <!-- ============ 13 EXECUTIVE DESIGN PRINCIPLES ============ -->
+  <section style="margin-top:56px;break-before:page;">
+    <div style="display:flex;align-items:baseline;gap:16px;border-top:2px solid #2E2E78;padding-top:14px;">
+      <span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:#2E2E78;">13</span>
+      <span style="font-family:'Quicksand',sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7A6FD8;">Executive Design Principles</span>
+    </div>
+    <h2 style="font-family:'Hanken Grotesk',sans-serif;font-weight:800;font-size:33px;line-height:1.08;letter-spacing:-.02em;color:#232360;margin:18px 0 16px;">Acceptance criteria for every future decision.</h2>
+    <p style="font-family:'Hanken Grotesk',sans-serif;font-weight:500;font-size:17px;line-height:1.56;color:#454592;margin:0 0 26px;max-width:38em;">These are non-negotiable and testable. Any design or engineering decision may be checked against them before it ships. A &ldquo;no&rdquo; on any line is a blocker, not a discussion.</p>
+
+    <div style="display:flex;flex-direction:column;gap:9px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">A</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Exactly one dominant object is on screen. The Hero is always it, and nothing equals its visual weight.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">B</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">The Hero is never hidden, collapsed, or displaced &mdash; not by a modal, notification, or empty state.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">C</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Every element belongs to exactly one layer: Orient, Execute, Support, or Store. Ambiguous placement is rejected.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">D</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Waiting and stored items are always quieter than actionable work. Blocked work never interrupts.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">E</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Load increases depth, never surface weight. The visible workspace looks the same on the busiest and quietest day.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">F</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">The feature reduces decisions or noise. If it adds either, it is redesigned or declined.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">G</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Nothing is entered twice and nothing is lost. Every item has one home and one forward path.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">H</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">The workspace adapts emphasis, not modes. No new tabs, views, or layouts are introduced.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">I</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Depth is disclosed progressively. The default surface is calm; complexity appears only on approach.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;background:#F4F4FD;border-radius:12px;padding:14px 18px;"><span style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:12px;color:#fff;background:#5F5DCB;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">J</span><span style="font-family:'Hanken Grotesk',sans-serif;font-size:14.5px;line-height:1.5;color:#2B2B6E;">Visual calm is protected. If a change makes the room louder, the calm wins.</span></div>
+    </div>
+
+    <!-- Colophon -->
+    <div style="margin-top:46px;padding-top:22px;border-top:2px solid #2E2E78;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
+      <div>
+        <div style="font-family:'Quicksand',sans-serif;font-weight:700;font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:#3A3A8B;">Executive&nbsp;Tower</div>
+        <p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;line-height:1.6;color:#6E6EA8;margin:8px 0 0;max-width:26em;">This document is the authoritative product specification. It governs every future design and engineering decision. Orient &rarr; Execute &rarr; Support &rarr; Store.</p>
+      </div>
+      <div style="text-align:right;font-family:'Hanken Grotesk',sans-serif;font-size:12px;line-height:1.7;color:#9A9AC0;flex-shrink:0;">
+        <div style="font-weight:700;color:#4E4CB0;">Product Constitution</div>
+        <div>Version 1.0 &middot; Permanent</div>
+      </div>
+    </div>
+  </section>
+
+
+</x-import>
+</x-dc>
+</body>
+</html>
